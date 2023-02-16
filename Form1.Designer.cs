@@ -29,6 +29,9 @@ namespace PolynomialCalculation
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.labelDegree = new System.Windows.Forms.Label();
             this.buttonFindRoots = new System.Windows.Forms.Button();
             this.textBoxCoefficient2 = new System.Windows.Forms.TextBox();
@@ -56,8 +59,10 @@ namespace PolynomialCalculation
             this.labelRoot3 = new System.Windows.Forms.Label();
             this.labelRoot2 = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBoxEquation.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             this.SuspendLayout();
             // 
             // labelDegree
@@ -265,13 +270,13 @@ namespace PolynomialCalculation
             // 
             // labelRoot1
             // 
-            this.labelRoot1.AutoSize = true;
             this.labelRoot1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelRoot1.Location = new System.Drawing.Point(9, 16);
             this.labelRoot1.Name = "labelRoot1";
             this.labelRoot1.Size = new System.Drawing.Size(38, 20);
             this.labelRoot1.TabIndex = 13;
             this.labelRoot1.Text = "x₁ = ";
+            this.labelRoot1.Visible = false;
             // 
             // groupBox1
             // 
@@ -283,7 +288,7 @@ namespace PolynomialCalculation
             this.groupBox1.Controls.Add(this.labelRoot1);
             this.groupBox1.Location = new System.Drawing.Point(308, 239);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(161, 150);
+            this.groupBox1.Size = new System.Drawing.Size(161, 184);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             // 
@@ -299,49 +304,66 @@ namespace PolynomialCalculation
             // 
             // labelRoot5
             // 
-            this.labelRoot5.AutoSize = true;
             this.labelRoot5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelRoot5.Location = new System.Drawing.Point(9, 96);
             this.labelRoot5.Name = "labelRoot5";
             this.labelRoot5.Size = new System.Drawing.Size(38, 20);
             this.labelRoot5.TabIndex = 17;
             this.labelRoot5.Text = "x₅ = ";
+            this.labelRoot5.Visible = false;
             // 
             // labelRoot4
             // 
-            this.labelRoot4.AutoSize = true;
             this.labelRoot4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelRoot4.Location = new System.Drawing.Point(9, 76);
             this.labelRoot4.Name = "labelRoot4";
             this.labelRoot4.Size = new System.Drawing.Size(38, 20);
             this.labelRoot4.TabIndex = 16;
             this.labelRoot4.Text = "x₄ = ";
+            this.labelRoot4.Visible = false;
             // 
             // labelRoot3
             // 
-            this.labelRoot3.AutoSize = true;
             this.labelRoot3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelRoot3.Location = new System.Drawing.Point(9, 56);
             this.labelRoot3.Name = "labelRoot3";
             this.labelRoot3.Size = new System.Drawing.Size(38, 20);
             this.labelRoot3.TabIndex = 15;
             this.labelRoot3.Text = "x₃ = ";
+            this.labelRoot3.Visible = false;
             // 
             // labelRoot2
             // 
-            this.labelRoot2.AutoSize = true;
             this.labelRoot2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelRoot2.Location = new System.Drawing.Point(9, 36);
             this.labelRoot2.Name = "labelRoot2";
             this.labelRoot2.Size = new System.Drawing.Size(38, 20);
             this.labelRoot2.TabIndex = 14;
             this.labelRoot2.Text = "x₂ = ";
+            this.labelRoot2.Visible = false;
+            // 
+            // chart
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart.Legends.Add(legend1);
+            this.chart.Location = new System.Drawing.Point(11, 182);
+            this.chart.Name = "chart";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart.Series.Add(series1);
+            this.chart.Size = new System.Drawing.Size(291, 241);
+            this.chart.TabIndex = 15;
+            this.chart.Text = "chart1";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(481, 402);
+            this.ClientSize = new System.Drawing.Size(481, 435);
+            this.Controls.Add(this.chart);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBoxEquation);
             this.Controls.Add(this.label5);
@@ -354,6 +376,7 @@ namespace PolynomialCalculation
             this.groupBoxEquation.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -388,6 +411,7 @@ namespace PolynomialCalculation
         private System.Windows.Forms.Label labelRoot2;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Label labelVar0;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart;
     }
 }
 
