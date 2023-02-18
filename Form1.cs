@@ -14,7 +14,7 @@ namespace PolynomialCalculation
     {
         private List<TextBox> _coefficients = new List<TextBox>();
         private List<Label> _variables = new List<Label>();
-        private List<string> _roots = new List<string>();
+        private List<TextBox> _roots = new List<TextBox>();
         private List<Label> _rootLabels = new List<Label>();
         private int _degree;
         private int _maxDegree = 5;
@@ -35,17 +35,17 @@ namespace PolynomialCalculation
             _variables.Add(labelVar4);
             _variables.Add(labelVar5);
 
-            _roots.Add(labelRoot1.Text);
-            _roots.Add(labelRoot2.Text);
-            _roots.Add(labelRoot3.Text);
-            _roots.Add(labelRoot4.Text);
-            _roots.Add(labelRoot5.Text);
-
             _rootLabels.Add(labelRoot1);
             _rootLabels.Add(labelRoot2);
             _rootLabels.Add(labelRoot3);
             _rootLabels.Add(labelRoot4);
             _rootLabels.Add(labelRoot5);
+
+            _roots.Add(textBoxRoot1);
+            _roots.Add(textBoxRoot2);
+            _roots.Add(textBoxRoot3);
+            _roots.Add(textBoxRoot4);
+            _roots.Add(textBoxRoot5);
         }
 
         private void comboBoxDegree_SelectedIndexChanged(object sender, EventArgs e)
@@ -62,7 +62,22 @@ namespace PolynomialCalculation
                 switch (_degree)
                 {
                     case 1:
-                        labelRoot1.Text = _roots[0] + (-Convert.ToDouble(_coefficients[0].Text) / Convert.ToDouble(_coefficients[1].Text)).ToString(); break;
+                        {
+                            _roots[0].Text = (-Convert.ToDouble(_coefficients[0].Text) / Convert.ToDouble(_coefficients[1].Text)).ToString();
+                            
+                            chart.Series["Func"].Points.Clear();
+
+                            int y;
+
+                            for (int x = -10; x <= 10; x++)
+                            {
+                                y = Convert.ToInt32(_coefficients[2].Text) * x  + Convert.ToInt32(_coefficients[1].Text);
+
+                                chart.Series["Func"].Points.AddXY(x, y);
+                            }
+                        }
+
+                        break;
                     case 2:
                         {
                             double discriminant = Math.Pow(Convert.ToDouble(_coefficients[1].Text), 2) - 4 * Convert.ToDouble(_coefficients[2].Text) * Convert.ToDouble(_coefficients[0].Text);
@@ -71,14 +86,14 @@ namespace PolynomialCalculation
                             {
                                 var sqrtDis = Math.Sqrt(discriminant);
 
-                                var root1 = Math.Round(-Convert.ToDouble(_coefficients[1].Text) + sqrtDis / (2 * Convert.ToDouble(_coefficients[2].Text)), 2);
-                                var root2 = Math.Round(-Convert.ToDouble(_coefficients[1].Text) - sqrtDis / (2 * Convert.ToDouble(_coefficients[2].Text)), 2);
+                                var root1 = -Convert.ToDouble(_coefficients[1].Text) + sqrtDis / (2 * Convert.ToDouble(_coefficients[2].Text));
+                                var root2 = -Convert.ToDouble(_coefficients[1].Text) - sqrtDis / (2 * Convert.ToDouble(_coefficients[2].Text));
 
-                                //labelRoot1.Text = _roots[0] + root1;
-                                //labelRoot2.Text = _roots[1] + root2;
+                                _roots[1].Text = root1.ToString();
+                                _roots[1].Text = root2.ToString();
 
-                                labelRoot1.Text = root1.ToString();
-                                labelRoot2.Text = root2.ToString();
+                       //         labelRoot1.Text = root1.ToString();
+                        //        labelRoot2.Text = root2.ToString();
 
 
                             }
@@ -86,14 +101,26 @@ namespace PolynomialCalculation
                             {
                                 var sqrtDis = Math.Sqrt(Math.Abs(discriminant));
 
-                                var root1 = Math.Round(sqrtDis * Math.Cos(Math.PI * 0), 2) + " + i" + Math.Round(sqrtDis * Math.Sin(Math.PI * 0), 2);
-                                var root2 = Math.Round(sqrtDis * Math.Cos(Math.PI * 1), 2) + " + i" + Math.Round(sqrtDis * Math.Sin(Math.PI * 1), 2);
+                                var root1 = Math.Round(sqrtDis, 3);
+                                var root2 = Math.Round(sqrtDis, 3) * -1;
 
-                              //  labelRoot1.Text = _roots[0] + root1;
-                              //  labelRoot2.Text = _roots[1] + root2;
+                                _roots[0].Text = root1.ToString();
+                                _roots[1].Text = root2.ToString();
 
-                               labelRoot1.Text =   root1;
-                               labelRoot2.Text =   root2;
+                                //labelRoot1.Text =   root1;
+                                //labelRoot2.Text =   root2;
+                            }
+
+
+                            chart.Series["Func"].Points.Clear();
+
+                            int y;
+
+                            for (int x = -10; x <= 10; x++)
+                            {
+                                y = Convert.ToInt32(_coefficients[2].Text) * x * x + Convert.ToInt32(_coefficients[1].Text) * x + Convert.ToInt32(_coefficients[0].Text);
+
+                                chart.Series["Func"].Points.AddXY(x, y);
                             }
                         }
                         break;
@@ -115,17 +142,8 @@ namespace PolynomialCalculation
                 }
 
 
+              //  textBoxFunc
 
-                chart.Series["Series1"].Points.Clear();
-
-                int y;
-
-                for (int x = -10; x <= 10; x++)
-                {
-                    y = Convert.ToInt32(_coefficients[2].Text) * x * x + Convert.ToInt32(_coefficients[1].Text) * x + Convert.ToInt32(_coefficients[0].Text);
-
-                    chart.Series["Series1"].Points.AddXY(x, y);
-                }
 
 
             }
@@ -133,11 +151,6 @@ namespace PolynomialCalculation
             {
                 MessageBox.Show(ex.Message, "Возникло исключение", MessageBoxButtons.OK);
             }
-
-
-
-
-
 
             //private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
             //{
@@ -164,18 +177,18 @@ namespace PolynomialCalculation
             //}
         }
 
-
-
         private void EquationVisibility()
         {
             for (int i = 0; i <= _maxDegree; i++)
             {
-                _coefficients[i].Visible = false;
+                _coefficients[i].Visible = false; 
                 _variables[i].Visible = false;
+
 
                 if (i != _maxDegree)
                 {
                     _rootLabels[i].Visible = false;
+                    _roots[i].Visible = false;
                 }
             }
 
@@ -187,6 +200,7 @@ namespace PolynomialCalculation
                 if (i != _degree)
                 {
                     _rootLabels[i].Visible = true;
+                    _roots[i].Visible = true;
                 }
             }
         }
