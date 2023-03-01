@@ -29,9 +29,9 @@ namespace PolynomialCalculation
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend9 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.labelDegree = new System.Windows.Forms.Label();
             this.buttonFindRoots = new System.Windows.Forms.Button();
             this.labelRoot1 = new System.Windows.Forms.Label();
@@ -94,7 +94,7 @@ namespace PolynomialCalculation
             this.buttonFindRoots.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonFindRoots.Location = new System.Drawing.Point(474, 182);
             this.buttonFindRoots.Name = "buttonFindRoots";
-            this.buttonFindRoots.Size = new System.Drawing.Size(223, 51);
+            this.buttonFindRoots.Size = new System.Drawing.Size(252, 51);
             this.buttonFindRoots.TabIndex = 8;
             this.buttonFindRoots.Text = "Найти корни";
             this.buttonFindRoots.UseVisualStyleBackColor = true;
@@ -134,17 +134,17 @@ namespace PolynomialCalculation
             this.groupBox1.Controls.Add(this.labelRoot1);
             this.groupBox1.Location = new System.Drawing.Point(474, 239);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(225, 194);
+            this.groupBox1.Size = new System.Drawing.Size(252, 194);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             // 
             // textBoxFunc5
             // 
-            this.textBoxFunc5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxFunc5.Location = new System.Drawing.Point(158, 145);
+            this.textBoxFunc5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxFunc5.Location = new System.Drawing.Point(174, 145);
             this.textBoxFunc5.Name = "textBoxFunc5";
             this.textBoxFunc5.ReadOnly = true;
-            this.textBoxFunc5.Size = new System.Drawing.Size(61, 26);
+            this.textBoxFunc5.Size = new System.Drawing.Size(68, 24);
             this.textBoxFunc5.TabIndex = 32;
             this.textBoxFunc5.Visible = false;
             // 
@@ -152,7 +152,7 @@ namespace PolynomialCalculation
             // 
             this.labelFunc5.AutoSize = true;
             this.labelFunc5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelFunc5.Location = new System.Drawing.Point(108, 148);
+            this.labelFunc5.Location = new System.Drawing.Point(124, 148);
             this.labelFunc5.Name = "labelFunc5";
             this.labelFunc5.Size = new System.Drawing.Size(53, 20);
             this.labelFunc5.TabIndex = 31;
@@ -161,11 +161,11 @@ namespace PolynomialCalculation
             // 
             // textBoxFunc4
             // 
-            this.textBoxFunc4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxFunc4.Location = new System.Drawing.Point(158, 115);
+            this.textBoxFunc4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxFunc4.Location = new System.Drawing.Point(174, 115);
             this.textBoxFunc4.Name = "textBoxFunc4";
             this.textBoxFunc4.ReadOnly = true;
-            this.textBoxFunc4.Size = new System.Drawing.Size(61, 26);
+            this.textBoxFunc4.Size = new System.Drawing.Size(68, 24);
             this.textBoxFunc4.TabIndex = 30;
             this.textBoxFunc4.Visible = false;
             // 
@@ -173,7 +173,7 @@ namespace PolynomialCalculation
             // 
             this.labelFunc4.AutoSize = true;
             this.labelFunc4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelFunc4.Location = new System.Drawing.Point(108, 118);
+            this.labelFunc4.Location = new System.Drawing.Point(124, 118);
             this.labelFunc4.Name = "labelFunc4";
             this.labelFunc4.Size = new System.Drawing.Size(53, 20);
             this.labelFunc4.TabIndex = 29;
@@ -182,11 +182,11 @@ namespace PolynomialCalculation
             // 
             // textBoxFunc3
             // 
-            this.textBoxFunc3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxFunc3.Location = new System.Drawing.Point(158, 85);
+            this.textBoxFunc3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxFunc3.Location = new System.Drawing.Point(174, 85);
             this.textBoxFunc3.Name = "textBoxFunc3";
             this.textBoxFunc3.ReadOnly = true;
-            this.textBoxFunc3.Size = new System.Drawing.Size(61, 26);
+            this.textBoxFunc3.Size = new System.Drawing.Size(68, 24);
             this.textBoxFunc3.TabIndex = 28;
             this.textBoxFunc3.Visible = false;
             // 
@@ -194,7 +194,7 @@ namespace PolynomialCalculation
             // 
             this.labelFunc3.AutoSize = true;
             this.labelFunc3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelFunc3.Location = new System.Drawing.Point(108, 88);
+            this.labelFunc3.Location = new System.Drawing.Point(124, 88);
             this.labelFunc3.Name = "labelFunc3";
             this.labelFunc3.Size = new System.Drawing.Size(53, 20);
             this.labelFunc3.TabIndex = 27;
@@ -203,11 +203,11 @@ namespace PolynomialCalculation
             // 
             // textBoxFunc2
             // 
-            this.textBoxFunc2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxFunc2.Location = new System.Drawing.Point(158, 55);
+            this.textBoxFunc2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxFunc2.Location = new System.Drawing.Point(174, 55);
             this.textBoxFunc2.Name = "textBoxFunc2";
             this.textBoxFunc2.ReadOnly = true;
-            this.textBoxFunc2.Size = new System.Drawing.Size(61, 26);
+            this.textBoxFunc2.Size = new System.Drawing.Size(68, 24);
             this.textBoxFunc2.TabIndex = 26;
             this.textBoxFunc2.Visible = false;
             // 
@@ -215,7 +215,7 @@ namespace PolynomialCalculation
             // 
             this.labelFunc2.AutoSize = true;
             this.labelFunc2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelFunc2.Location = new System.Drawing.Point(108, 58);
+            this.labelFunc2.Location = new System.Drawing.Point(124, 58);
             this.labelFunc2.Name = "labelFunc2";
             this.labelFunc2.Size = new System.Drawing.Size(53, 20);
             this.labelFunc2.TabIndex = 25;
@@ -224,61 +224,61 @@ namespace PolynomialCalculation
             // 
             // textBoxFunc1
             // 
-            this.textBoxFunc1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxFunc1.Location = new System.Drawing.Point(158, 25);
+            this.textBoxFunc1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxFunc1.Location = new System.Drawing.Point(174, 25);
             this.textBoxFunc1.Name = "textBoxFunc1";
             this.textBoxFunc1.ReadOnly = true;
-            this.textBoxFunc1.Size = new System.Drawing.Size(61, 26);
+            this.textBoxFunc1.Size = new System.Drawing.Size(68, 24);
             this.textBoxFunc1.TabIndex = 24;
             this.textBoxFunc1.Visible = false;
             // 
             // textBoxRoot5
             // 
-            this.textBoxRoot5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxRoot5.Location = new System.Drawing.Point(41, 145);
+            this.textBoxRoot5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxRoot5.Location = new System.Drawing.Point(47, 145);
             this.textBoxRoot5.Name = "textBoxRoot5";
             this.textBoxRoot5.ReadOnly = true;
-            this.textBoxRoot5.Size = new System.Drawing.Size(61, 26);
+            this.textBoxRoot5.Size = new System.Drawing.Size(68, 24);
             this.textBoxRoot5.TabIndex = 23;
             this.textBoxRoot5.Visible = false;
             // 
             // textBoxRoot4
             // 
-            this.textBoxRoot4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxRoot4.Location = new System.Drawing.Point(41, 115);
+            this.textBoxRoot4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxRoot4.Location = new System.Drawing.Point(47, 115);
             this.textBoxRoot4.Name = "textBoxRoot4";
             this.textBoxRoot4.ReadOnly = true;
-            this.textBoxRoot4.Size = new System.Drawing.Size(61, 26);
+            this.textBoxRoot4.Size = new System.Drawing.Size(68, 24);
             this.textBoxRoot4.TabIndex = 22;
             this.textBoxRoot4.Visible = false;
             // 
             // textBoxRoot3
             // 
-            this.textBoxRoot3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxRoot3.Location = new System.Drawing.Point(41, 85);
+            this.textBoxRoot3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxRoot3.Location = new System.Drawing.Point(47, 85);
             this.textBoxRoot3.Name = "textBoxRoot3";
             this.textBoxRoot3.ReadOnly = true;
-            this.textBoxRoot3.Size = new System.Drawing.Size(61, 26);
+            this.textBoxRoot3.Size = new System.Drawing.Size(68, 24);
             this.textBoxRoot3.TabIndex = 21;
             this.textBoxRoot3.Visible = false;
             // 
             // textBoxRoot2
             // 
-            this.textBoxRoot2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxRoot2.Location = new System.Drawing.Point(41, 55);
+            this.textBoxRoot2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxRoot2.Location = new System.Drawing.Point(47, 55);
             this.textBoxRoot2.Name = "textBoxRoot2";
             this.textBoxRoot2.ReadOnly = true;
-            this.textBoxRoot2.Size = new System.Drawing.Size(61, 26);
+            this.textBoxRoot2.Size = new System.Drawing.Size(68, 24);
             this.textBoxRoot2.TabIndex = 20;
             this.textBoxRoot2.Visible = false;
             // 
             // textBoxRoot1
             // 
-            this.textBoxRoot1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxRoot1.Location = new System.Drawing.Point(41, 25);
+            this.textBoxRoot1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxRoot1.Location = new System.Drawing.Point(47, 25);
             this.textBoxRoot1.Name = "textBoxRoot1";
             this.textBoxRoot1.ReadOnly = true;
-            this.textBoxRoot1.Size = new System.Drawing.Size(61, 26);
+            this.textBoxRoot1.Size = new System.Drawing.Size(68, 24);
             this.textBoxRoot1.TabIndex = 19;
             this.textBoxRoot1.Visible = false;
             // 
@@ -286,7 +286,7 @@ namespace PolynomialCalculation
             // 
             this.labelFunc1.AutoSize = true;
             this.labelFunc1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelFunc1.Location = new System.Drawing.Point(108, 28);
+            this.labelFunc1.Location = new System.Drawing.Point(124, 28);
             this.labelFunc1.Name = "labelFunc1";
             this.labelFunc1.Size = new System.Drawing.Size(53, 20);
             this.labelFunc1.TabIndex = 18;
@@ -335,17 +335,17 @@ namespace PolynomialCalculation
             // 
             // chart
             // 
-            chartArea9.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea9);
-            legend9.Name = "Legend1";
-            this.chart.Legends.Add(legend9);
+            chartArea1.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart.Legends.Add(legend1);
             this.chart.Location = new System.Drawing.Point(11, 182);
             this.chart.Name = "chart";
-            series9.ChartArea = "ChartArea1";
-            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series9.Legend = "Legend1";
-            series9.Name = "Func";
-            this.chart.Series.Add(series9);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Legend = "Legend1";
+            series1.Name = "Func";
+            this.chart.Series.Add(series1);
             this.chart.Size = new System.Drawing.Size(457, 251);
             this.chart.TabIndex = 15;
             this.chart.Text = "chart1";
@@ -381,7 +381,7 @@ namespace PolynomialCalculation
             // 
             this.labelVar2.AutoSize = true;
             this.labelVar2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelVar2.Location = new System.Drawing.Point(442, 35);
+            this.labelVar2.Location = new System.Drawing.Point(447, 35);
             this.labelVar2.Name = "labelVar2";
             this.labelVar2.Size = new System.Drawing.Size(34, 20);
             this.labelVar2.TabIndex = 99;
@@ -391,7 +391,7 @@ namespace PolynomialCalculation
             // textBoxCoefficient0
             // 
             this.textBoxCoefficient0.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxCoefficient0.Location = new System.Drawing.Point(581, 32);
+            this.textBoxCoefficient0.Location = new System.Drawing.Point(586, 32);
             this.textBoxCoefficient0.Name = "textBoxCoefficient0";
             this.textBoxCoefficient0.Size = new System.Drawing.Size(58, 26);
             this.textBoxCoefficient0.TabIndex = 7;
@@ -402,7 +402,7 @@ namespace PolynomialCalculation
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(645, 35);
+            this.label4.Location = new System.Drawing.Point(650, 35);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(31, 20);
             this.label4.TabIndex = 99;
@@ -411,7 +411,7 @@ namespace PolynomialCalculation
             // textBoxCoefficient2
             // 
             this.textBoxCoefficient2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxCoefficient2.Location = new System.Drawing.Point(378, 32);
+            this.textBoxCoefficient2.Location = new System.Drawing.Point(383, 32);
             this.textBoxCoefficient2.Name = "textBoxCoefficient2";
             this.textBoxCoefficient2.Size = new System.Drawing.Size(58, 26);
             this.textBoxCoefficient2.TabIndex = 5;
@@ -422,7 +422,7 @@ namespace PolynomialCalculation
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(16, 35);
+            this.label2.Location = new System.Drawing.Point(21, 35);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 20);
             this.label2.TabIndex = 5;
@@ -431,7 +431,7 @@ namespace PolynomialCalculation
             // textBoxCoefficient3
             // 
             this.textBoxCoefficient3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxCoefficient3.Location = new System.Drawing.Point(271, 32);
+            this.textBoxCoefficient3.Location = new System.Drawing.Point(276, 32);
             this.textBoxCoefficient3.Name = "textBoxCoefficient3";
             this.textBoxCoefficient3.Size = new System.Drawing.Size(58, 26);
             this.textBoxCoefficient3.TabIndex = 4;
@@ -442,7 +442,7 @@ namespace PolynomialCalculation
             // 
             this.labelVar3.AutoSize = true;
             this.labelVar3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelVar3.Location = new System.Drawing.Point(335, 35);
+            this.labelVar3.Location = new System.Drawing.Point(340, 35);
             this.labelVar3.Name = "labelVar3";
             this.labelVar3.Size = new System.Drawing.Size(34, 20);
             this.labelVar3.TabIndex = 12;
@@ -453,7 +453,7 @@ namespace PolynomialCalculation
             // 
             this.labelVar1.AutoSize = true;
             this.labelVar1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelVar1.Location = new System.Drawing.Point(546, 35);
+            this.labelVar1.Location = new System.Drawing.Point(551, 35);
             this.labelVar1.Name = "labelVar1";
             this.labelVar1.Size = new System.Drawing.Size(29, 20);
             this.labelVar1.TabIndex = 99;
@@ -463,7 +463,7 @@ namespace PolynomialCalculation
             // textBoxCoefficient1
             // 
             this.textBoxCoefficient1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxCoefficient1.Location = new System.Drawing.Point(482, 32);
+            this.textBoxCoefficient1.Location = new System.Drawing.Point(487, 32);
             this.textBoxCoefficient1.Name = "textBoxCoefficient1";
             this.textBoxCoefficient1.Size = new System.Drawing.Size(58, 26);
             this.textBoxCoefficient1.TabIndex = 6;
@@ -474,7 +474,7 @@ namespace PolynomialCalculation
             // 
             this.labelVar4.AutoSize = true;
             this.labelVar4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelVar4.Location = new System.Drawing.Point(231, 35);
+            this.labelVar4.Location = new System.Drawing.Point(236, 35);
             this.labelVar4.Name = "labelVar4";
             this.labelVar4.Size = new System.Drawing.Size(34, 20);
             this.labelVar4.TabIndex = 14;
@@ -484,7 +484,7 @@ namespace PolynomialCalculation
             // textBoxCoefficient4
             // 
             this.textBoxCoefficient4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxCoefficient4.Location = new System.Drawing.Point(167, 32);
+            this.textBoxCoefficient4.Location = new System.Drawing.Point(172, 32);
             this.textBoxCoefficient4.Name = "textBoxCoefficient4";
             this.textBoxCoefficient4.Size = new System.Drawing.Size(58, 26);
             this.textBoxCoefficient4.TabIndex = 3;
@@ -494,7 +494,7 @@ namespace PolynomialCalculation
             // textBoxCoefficient5
             // 
             this.textBoxCoefficient5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxCoefficient5.Location = new System.Drawing.Point(61, 32);
+            this.textBoxCoefficient5.Location = new System.Drawing.Point(66, 32);
             this.textBoxCoefficient5.Name = "textBoxCoefficient5";
             this.textBoxCoefficient5.Size = new System.Drawing.Size(58, 26);
             this.textBoxCoefficient5.TabIndex = 2;
@@ -505,7 +505,7 @@ namespace PolynomialCalculation
             // 
             this.labelVar5.AutoSize = true;
             this.labelVar5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelVar5.Location = new System.Drawing.Point(127, 35);
+            this.labelVar5.Location = new System.Drawing.Point(132, 35);
             this.labelVar5.Name = "labelVar5";
             this.labelVar5.Size = new System.Drawing.Size(34, 20);
             this.labelVar5.TabIndex = 16;
@@ -516,7 +516,7 @@ namespace PolynomialCalculation
             // 
             this.labelVar0.AutoSize = true;
             this.labelVar0.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelVar0.Location = new System.Drawing.Point(511, 9);
+            this.labelVar0.Location = new System.Drawing.Point(516, 9);
             this.labelVar0.Name = "labelVar0";
             this.labelVar0.Size = new System.Drawing.Size(0, 20);
             this.labelVar0.TabIndex = 17;
@@ -540,7 +540,7 @@ namespace PolynomialCalculation
             this.groupBoxEquation.Controls.Add(this.labelVar2);
             this.groupBoxEquation.Location = new System.Drawing.Point(12, 94);
             this.groupBoxEquation.Name = "groupBoxEquation";
-            this.groupBoxEquation.Size = new System.Drawing.Size(685, 82);
+            this.groupBoxEquation.Size = new System.Drawing.Size(714, 82);
             this.groupBoxEquation.TabIndex = 12;
             this.groupBoxEquation.TabStop = false;
             // 
@@ -548,7 +548,7 @@ namespace PolynomialCalculation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(703, 446);
+            this.ClientSize = new System.Drawing.Size(735, 446);
             this.Controls.Add(this.chart);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBoxEquation);
