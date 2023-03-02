@@ -29,9 +29,9 @@ namespace PolynomialCalculation
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.labelDegree = new System.Windows.Forms.Label();
             this.buttonFindRoots = new System.Windows.Forms.Button();
             this.labelRoot1 = new System.Windows.Forms.Label();
@@ -55,7 +55,6 @@ namespace PolynomialCalculation
             this.labelRoot4 = new System.Windows.Forms.Label();
             this.labelRoot3 = new System.Windows.Forms.Label();
             this.labelRoot2 = new System.Windows.Forms.Label();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.comboBoxDegree = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -335,17 +334,17 @@ namespace PolynomialCalculation
             // 
             // chart
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart.Legends.Add(legend1);
+            chartArea3.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chart.Legends.Add(legend3);
             this.chart.Location = new System.Drawing.Point(11, 182);
             this.chart.Name = "chart";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Legend = "Legend1";
-            series1.Name = "Func";
-            this.chart.Series.Add(series1);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series3.Legend = "Legend1";
+            series3.Name = "Func";
+            this.chart.Series.Add(series3);
             this.chart.Size = new System.Drawing.Size(457, 251);
             this.chart.TabIndex = 15;
             this.chart.Text = "chart1";
@@ -582,7 +581,6 @@ namespace PolynomialCalculation
         private System.Windows.Forms.Label labelRoot4;
         private System.Windows.Forms.Label labelRoot3;
         private System.Windows.Forms.Label labelRoot2;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart;
         private System.Windows.Forms.TextBox textBoxRoot2;
         private System.Windows.Forms.TextBox textBoxRoot1;

@@ -130,8 +130,8 @@ namespace PolynomialCalculation
                                 _roots[0].Text = root_real.ToString() + " + i" + root_img.ToString();
                                 _roots[1].Text = root_real.ToString() + " - i" + root_img.ToString();
 
-                                _func[0].Text = (Math.Round(a * (Math.Pow(root_real, 2) + -Math.Pow(root_img, 2)) + b * root_real + c, 14)).ToString();
-                                _func[1].Text = (Math.Round(a * (Math.Pow(root_real, 2) + -Math.Pow(root_img, 2)) + b * root_real + c, 14)).ToString();
+                                _func[0].Text = (Math.Round(a * (Math.Pow(root_real, 2) + -Math.Pow(root_img, 2)) + b * root_real + c, 12)).ToString();
+                                _func[1].Text = (Math.Round(a * (Math.Pow(root_real, 2) + -Math.Pow(root_img, 2)) + b * root_real + c, 12)).ToString();
                             }
 
                             chart.Series["Func"].Points.Clear();
@@ -140,7 +140,7 @@ namespace PolynomialCalculation
 
                             for (int x = -10; x <= 10; x++)
                             {
-                                y = Convert.ToInt32(_coefficients[2].Text) * x * x + Convert.ToInt32(_coefficients[1].Text) * x + Convert.ToInt32(_coefficients[0].Text);
+                                y = (int)(a * x * x + b * x + c);
 
                                 chart.Series["Func"].Points.AddXY(x, y);
                             }
@@ -148,7 +148,60 @@ namespace PolynomialCalculation
                         break;
                     case 3:
                         {
+                            var a0 = Convert.ToDouble(_coefficients[3].Text);
+                            var a1 = Convert.ToDouble(_coefficients[2].Text);
+                            var a2 = Convert.ToDouble(_coefficients[1].Text);
+                            var a3 = Convert.ToDouble(_coefficients[0].Text);
 
+                            var b1 = a1 / a0;
+                            var b2 = a2 / a0;
+                            var b3 = a3 / a0;
+
+                            var p = -Math.Pow(b1, 2) / 3 + b2;
+                            var q = 2 * Math.Pow(b1, 3) / 27 - b1 * b2 / 3 + b3;
+
+                            var z1 = Math.Pow(Math.Abs(-q / 2 + (Double.IsNaN(Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27)) ? 0 : Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27))), 1.0 / 3);
+                            var z2 = Math.Pow(Math.Abs(-q / 2 - (Double.IsNaN(Math.Sqrt(-Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27)) ? 0 : Math.Sqrt(-Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27))), 1.0 / 3);
+
+                         //   MessageBox.Show($"{z1}  {z1}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            // MessageBox.Show($"{Math.Sqrt(Math.Abs(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27) <= 0 ? 1 : Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27))}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            var z = z1;
+
+                            var k1 = z * Math.Cos((Math.PI + 2 * Math.PI * 0) / 3);
+                            var k2 = z * Math.Cos((Math.PI + 2 * Math.PI * 1) / 3);
+                            var k3 = z * Math.Cos((Math.PI + 2 * Math.PI * 2) / 3);
+
+                            MessageBox.Show($"{k1}  {k2}  {k3}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            var y1 = k1 + k3;
+                            var y2 = k2 + k2;
+                            var y3 = k3 + k1;
+
+                            var x1 = y1 - b1 / 3;
+                            var x2 = y2 - b1 / 3;
+                            var x3 = y3 - b1 / 3;
+
+                            _roots[0].Text = x1.ToString();
+                            _roots[1].Text = x2.ToString();
+                            _roots[2].Text = x3.ToString();
+
+                            // MessageBox.Show($"{y1} - {y2} - {y3}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            chart.Series["Func"].Points.Clear();
+
+                            int y;
+
+                            for (int x = -10; x <= 10; x++)
+                            {
+                                y = (int)(a0 * Math.Pow(x, 3) + a1 * Math.Pow(x, 2) + a2 * x + a3);
+
+                                chart.Series["Func"].Points.AddXY(x, y);
+                            }
+
+                            _func[0].Text = (Math.Round(a0 * Math.Pow(x1, 3) + a1 * Math.Pow(x1, 2) + a2 * x1 + a3, 0)).ToString();
+                            _func[1].Text = (Math.Round(a0 * Math.Pow(x2, 3) + a1 * Math.Pow(x2, 2) + a2 * x2 + a3, 0)).ToString();
+                            _func[2].Text = (Math.Round(a0 * Math.Pow(x3, 3) + a1 * Math.Pow(x3, 2) + a2 * x3 + a3, 0)).ToString();
                         }
                         break;
                     case 4:
