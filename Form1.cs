@@ -160,31 +160,86 @@ namespace PolynomialCalculation
                             var p = -Math.Pow(b1, 2) / 3 + b2;
                             var q = 2 * Math.Pow(b1, 3) / 27 - b1 * b2 / 3 + b3;
 
-                            var z1 = Math.Pow(Math.Abs(-q / 2 + (Double.IsNaN(Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27)) ? 0 : Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27))), 1.0 / 3);
-                            var z2 = Math.Pow(Math.Abs(-q / 2 - (Double.IsNaN(Math.Sqrt(-Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27)) ? 0 : Math.Sqrt(-Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27))), 1.0 / 3);
+                            var Q = Math.Pow(p / 3, 3) + Math.Pow(q / 2, 2);
+                          //  MessageBox.Show($"{Q}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                         //   MessageBox.Show($"{z1}  {z1}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            // MessageBox.Show($"{Math.Sqrt(Math.Abs(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27) <= 0 ? 1 : Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27))}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            string x1 = "";
+                            string x2 = "";
+                            string x3 = "";
 
-                            var z = z1;
+                            double x1_real = 0;
+                            double x2_real = 0;
+                            double x3_real = 0;
+                            double x_img = 0;
 
-                            var k1 = z * Math.Cos((Math.PI + 2 * Math.PI * 0) / 3);
-                            var k2 = z * Math.Cos((Math.PI + 2 * Math.PI * 1) / 3);
-                            var k3 = z * Math.Cos((Math.PI + 2 * Math.PI * 2) / 3);
+                            if (Q > 0)
+                            {
+                                var alpha = double.IsNaN(Math.Pow(-(q / 2) + Math.Sqrt(Q), 1.0 / 3)) ? -Math.Pow(Math.Abs(-(q / 2) + Math.Sqrt(Q)), 1.0 / 3) : Math.Pow(-(q / 2) + Math.Sqrt(Q), 1.0 / 3);
+                                var beta = double.IsNaN(Math.Pow(-(q / 2) - Math.Sqrt(Q), 1.0 / 3)) ? -Math.Pow(Math.Abs(-(q / 2) - Math.Sqrt(Q)), 1.0 / 3) : Math.Pow(-(q / 2) - Math.Sqrt(Q), 1.0 / 3);
 
-                            MessageBox.Show($"{k1}  {k2}  {k3}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                var y1 = alpha + beta;
 
-                            var y1 = k1 + k3;
-                            var y2 = k2 + k2;
-                            var y3 = k3 + k1;
+             
 
-                            var x1 = y1 - b1 / 3;
-                            var x2 = y2 - b1 / 3;
-                            var x3 = y3 - b1 / 3;
+                                var y2_real = -(alpha + beta) / 2;
+                                var y_img = Math.Round((alpha - beta) / 2 * Math.Sqrt(3), 2);
 
-                            _roots[0].Text = x1.ToString();
-                            _roots[1].Text = x2.ToString();
-                            _roots[2].Text = x3.ToString();
+                                var y3_real = y2_real;
+
+                                x_img = y_img;
+
+                                 x1_real = Math.Round(y1 - b1 / 3, 2);
+                              //  x1_real = y1 - b1 / 3;
+                                x1 = x1_real.ToString();
+
+                                  x2_real = Math.Round(y2_real - b1 / 3, 2);
+                               // x2_real = y2_real - b1 / 3;
+                                x2 = x2_real + " + i" + x_img;
+
+                                 x3_real = Math.Round(y3_real - b1 / 3, 2);
+                               // x3_real = y3_real - b1 / 3;
+                                x3 = x3_real + " - i" + x_img;
+
+                            }
+                            else if (Q == 0)
+                            {
+
+                            }
+                            else
+                            {
+                                var z = Math.Pow(Math.Abs(-q / 2 + (Double.IsNaN(Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27)) ? 0 : Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27))), 1.0 / 3);
+                              //  var z = double.IsNaN(Math.Pow(- q / 2 + (Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27)), 1.0 / 3)) ? -Math.Pow(Math.Abs(-q / 2 + (Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27))), 1.0 / 3) : Math.Pow(-q / 2 + (Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27)), 1.0 / 3);
+                                //   var z2 = Math.Pow(Math.Abs(-q / 2 - (Double.IsNaN(Math.Sqrt(-Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27)) ? 0 : Math.Sqrt(-Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27))), 1.0 / 3);
+
+                                //   MessageBox.Show($"{z1}  {z1}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                // MessageBox.Show($"{Math.Sqrt(Math.Abs(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27) <= 0 ? 1 : Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27))}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                //  var z = z1;
+
+                                var k1 = z * Math.Cos((Math.PI + 2 * Math.PI * 0) / 3);
+                                var k2 = z * Math.Cos((Math.PI + 2 * Math.PI * 1) / 3);
+                                var k3 = z * Math.Cos((Math.PI + 2 * Math.PI * 2) / 3);
+
+                              //  MessageBox.Show($"{k1}  {k2}  {k3}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                var y1 = k1 + k3;
+                                var y2 = k2 + k2;
+                                var y3 = k3 + k1;
+
+                                x1_real = y1 - b1 / 3;
+                                x2_real = y2 - b1 / 3;
+                                x3_real = y3 - b1 / 3;
+
+                                x1 = x1_real.ToString();
+                                x2 = x2_real.ToString();
+                                x3 = x3_real.ToString();
+                            }
+
+                           
+
+                            _roots[0].Text = x1;
+                            _roots[1].Text = x2;
+                            _roots[2].Text = x3;
 
                             // MessageBox.Show($"{y1} - {y2} - {y3}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -192,16 +247,16 @@ namespace PolynomialCalculation
 
                             int y;
 
-                            for (int x = -10; x <= 10; x++)
+                            for (int x = -20; x <= 20; x++)
                             {
                                 y = (int)(a0 * Math.Pow(x, 3) + a1 * Math.Pow(x, 2) + a2 * x + a3);
 
                                 chart.Series["Func"].Points.AddXY(x, y);
                             }
 
-                            _func[0].Text = (Math.Round(a0 * Math.Pow(x1, 3) + a1 * Math.Pow(x1, 2) + a2 * x1 + a3, 0)).ToString();
-                            _func[1].Text = (Math.Round(a0 * Math.Pow(x2, 3) + a1 * Math.Pow(x2, 2) + a2 * x2 + a3, 0)).ToString();
-                            _func[2].Text = (Math.Round(a0 * Math.Pow(x3, 3) + a1 * Math.Pow(x3, 2) + a2 * x3 + a3, 0)).ToString();
+                            _func[0].Text = (Math.Round(a0 * Math.Pow(x1_real, 3) + a1 * Math.Pow(x1_real, 2) + a2 * x1_real + a3, 0)).ToString();
+                            _func[1].Text = (Math.Round(a0 * (Math.Pow(x2_real, 3) + (3 * x2_real * -Math.Pow(x_img, 2))) + a1 * (Math.Pow(x2_real, 2) + -Math.Pow(x_img, 2)) + a2 * x2_real + a3, 0)).ToString();
+                            _func[2].Text = (Math.Round(a0 * (Math.Pow(x3_real, 3) + (3 * x3_real * -Math.Pow(x_img, 2))) + a1 * (Math.Pow(x3_real, 2) + -Math.Pow(x_img, 2)) + a2 * x3_real + a3, 0)).ToString();
                         }
                         break;
                     case 4:
@@ -211,7 +266,6 @@ namespace PolynomialCalculation
                         break;
                     case 5:
                         {
-
                         }
                         break;
                 }
@@ -253,6 +307,7 @@ namespace PolynomialCalculation
                     _rootLabels[i].Visible = true;
                     _roots[i].Visible = true;
                     _func[i].Visible = true;
+
                     _funcLabels[i].Visible = true;
                 }
             }
@@ -268,7 +323,7 @@ namespace PolynomialCalculation
             {
 
             }
-            else if (!Char.IsDigit(number) && number != 8)
+            else if (!char.IsDigit(number) && number != 8)
             {
                 if (!textBox.Text.Contains(','))
                 {
@@ -289,7 +344,8 @@ namespace PolynomialCalculation
             {
                 if (textBox.SelectionStart == 0 && textBox.Text.Length == 0 ||
                     textBox.Text.Contains(',') && textBox.SelectionStart > 1 ||
-                    textBox.Text.Contains('-') && textBox.SelectionStart > 1)
+                    textBox.Text.Contains('-') && textBox.SelectionStart > 1 ||
+                    textBox.Text.Any(char.IsDigit) && textBox.SelectionStart > 0)
                 { }
                 else if (textBox.SelectionStart == 1 && textBox.Text.Contains('-'))
                 {
