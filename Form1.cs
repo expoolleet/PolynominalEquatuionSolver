@@ -114,11 +114,11 @@ namespace PolynomialCalculation
                                 var root1 = (-b + sqrtDis) / (2 * a);
                                 var root2 = (-b - sqrtDis) / (2 * a);
 
-                                _roots[0].Text = root1.ToString();
-                                _roots[1].Text = root2.ToString();
+                                _roots[0].Text = Math.Round(root1, 2).ToString();
+                                _roots[1].Text = Math.Round(root2, 2).ToString();
 
-                                _func[0].Text = (a * Math.Pow(root1, 2) + b * root1 + c).ToString();
-                                _func[1].Text = (a * Math.Pow(root2, 2) + b * root2 + c).ToString();
+                                _func[0].Text = Math.Round(a * Math.Pow(root1, 2) + b * root1 + c, 0).ToString();
+                                _func[1].Text = Math.Round(a * Math.Pow(root2, 2) + b * root2 + c, 0).ToString();
                             }
                             else
                             {
@@ -127,11 +127,11 @@ namespace PolynomialCalculation
                                 var root_real = -b / (2 * a);
                                 var root_img = sqrtDis / (2 * a);
 
-                                _roots[0].Text = root_real.ToString() + " + i" + root_img.ToString();
-                                _roots[1].Text = root_real.ToString() + " - i" + root_img.ToString();
+                                _roots[0].Text = Math.Round(root_real, 2).ToString() + " + i" + Math.Round(root_img, 2).ToString();
+                                _roots[1].Text = Math.Round(root_real, 2).ToString() + " - i" + Math.Round(root_img, 2).ToString();
 
-                                _func[0].Text = (Math.Round(a * (Math.Pow(root_real, 2) + -Math.Pow(root_img, 2)) + b * root_real + c, 12)).ToString();
-                                _func[1].Text = (Math.Round(a * (Math.Pow(root_real, 2) + -Math.Pow(root_img, 2)) + b * root_real + c, 12)).ToString();
+                                _func[0].Text = Math.Round(a * (Math.Pow(root_real, 2) + -Math.Pow(root_img, 2)) + b * root_real + c, 0).ToString();
+                                _func[1].Text = Math.Round(a * (Math.Pow(root_real, 2) + -Math.Pow(root_img, 2)) + b * root_real + c, 0).ToString();
                             }
 
                             chart.Series["Func"].Points.Clear();
@@ -161,7 +161,7 @@ namespace PolynomialCalculation
                             var q = 2 * Math.Pow(b1, 3) / 27 - b1 * b2 / 3 + b3;
 
                             var Q = Math.Pow(p / 3, 3) + Math.Pow(q / 2, 2);
-                          //  MessageBox.Show($"{Q}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                           // MessageBox.Show($"{Q}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                             string x1 = "";
                             string x2 = "";
@@ -179,63 +179,114 @@ namespace PolynomialCalculation
 
                                 var y1 = alpha + beta;
 
-             
+
 
                                 var y2_real = -(alpha + beta) / 2;
-                                var y_img = Math.Round((alpha - beta) / 2 * Math.Sqrt(3), 2);
+                                var y_img = (alpha - beta) / 2 * Math.Sqrt(3);
 
                                 var y3_real = y2_real;
 
                                 x_img = y_img;
 
-                                 x1_real = Math.Round(y1 - b1 / 3, 2);
-                              //  x1_real = y1 - b1 / 3;
-                                x1 = x1_real.ToString();
+                               // x1_real = Math.Round(y1 - b1 / 3, 15);
+                                  x1_real = y1 - b1 / 3;
+                                x1 = Math.Round(x1_real, 2).ToString();
 
-                                  x2_real = Math.Round(y2_real - b1 / 3, 2);
-                               // x2_real = y2_real - b1 / 3;
-                                x2 = x2_real + " + i" + x_img;
+                                //x2_real = Math.Round(y2_real - b1 / 3, 2);
+                                 x2_real = y2_real - b1 / 3;
+                                x2 = Math.Round(x2_real, 2) + " + i" + Math.Round(x_img, 2);
 
-                                 x3_real = Math.Round(y3_real - b1 / 3, 2);
-                               // x3_real = y3_real - b1 / 3;
-                                x3 = x3_real + " - i" + x_img;
+                                //x3_real = Math.Round(y3_real - b1 / 3, 2);
+                                 x3_real = y3_real - b1 / 3;
+                                x3 = Math.Round(x3_real, 2) + " - i" + Math.Round(x_img, 2);
 
                             }
                             else if (Q == 0)
                             {
+                                var alpha = double.IsNaN(Math.Pow(-(q / 2) + Math.Sqrt(Q), 1.0 / 3)) ? -Math.Pow(Math.Abs(-(q / 2) + Math.Sqrt(Q)), 1.0 / 3) : Math.Pow(-(q / 2) + Math.Sqrt(Q), 1.0 / 3);
+                             
+                                
+                                 //α = β
+                                 //y1 = 2α
+                                 //y2 = y3 = -α
 
+                                var y1 = 2 * alpha;
+                                var y2 = -alpha;
+                                var y3 = y2;
+
+                                x1_real = y1 - b1 / 3;
+                                x2_real = y2 - b1 / 3;
+                                x3_real = y3 - b1 / 3;
+
+                                x1 = Math.Round(x1_real, 2).ToString();
+                                x2 = Math.Round(x2_real, 2).ToString();
+                                x3 = Math.Round(x3_real, 2).ToString();
                             }
                             else
                             {
-                                var z = Math.Pow(Math.Abs(-q / 2 + (Double.IsNaN(Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27)) ? 0 : Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27))), 1.0 / 3);
-                              //  var z = double.IsNaN(Math.Pow(- q / 2 + (Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27)), 1.0 / 3)) ? -Math.Pow(Math.Abs(-q / 2 + (Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27))), 1.0 / 3) : Math.Pow(-q / 2 + (Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27)), 1.0 / 3);
+                                // var z = Math.Pow(Math.Abs(-q / 2 + (Double.IsNaN(Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27)) ? 0 : Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27))), 1.0 / 3);
+
+                                var x_real = -q / 2;
+                                var y_img = Math.Sqrt(Math.Abs(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27));
+
+                                var length = Math.Sqrt(Math.Pow(x_real, 2) + Math.Pow(y_img, 2));
+
+                                var z = Math.Pow(length, 1.0 / 3);
+                                // var z = double.IsNaN(Math.Pow(- q / 2 + (Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27)), 1.0 / 3)) ? -Math.Pow(Math.Abs(-q / 2 + (Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27))), 1.0 / 3) : Math.Pow(-q / 2 + (Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27)), 1.0 / 3);
                                 //   var z2 = Math.Pow(Math.Abs(-q / 2 - (Double.IsNaN(Math.Sqrt(-Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27)) ? 0 : Math.Sqrt(-Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27))), 1.0 / 3);
 
                                 //   MessageBox.Show($"{z1}  {z1}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 // MessageBox.Show($"{Math.Sqrt(Math.Abs(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27) <= 0 ? 1 : Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27))}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                                 //  var z = z1;
+                                double fi;
 
-                                var k1 = z * Math.Cos((Math.PI + 2 * Math.PI * 0) / 3);
-                                var k2 = z * Math.Cos((Math.PI + 2 * Math.PI * 1) / 3);
-                                var k3 = z * Math.Cos((Math.PI + 2 * Math.PI * 2) / 3);
+                                if (x_real > 0)
+                                {
+                                    fi = Math.Atan(y_img / x_real);
+                                }
+                                else if (x_real < 0 && y_img >= 0)
+                                {
+                                    fi = Math.PI + Math.Atan(y_img / x_real);
+                                }
+                                else if (x_real < 0 && y_img < 0)
+                                {
+                                    fi = -Math.PI + Math.Atan(y_img / x_real);
+                                }
+                                else if (x_real == 0 && y_img > 0)
+                                {
+                                    fi = Math.PI / 2;
+                                }
+                                else
+                                {
+                                    fi = -Math.PI / 2;
+                                }
 
-                              //  MessageBox.Show($"{k1}  {k2}  {k3}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                var k1 = z * Math.Cos((fi + 2 * Math.PI * 0) / 3);
+                               // var k1_img = z * Math.Sin((fi + 2 * Math.PI * 0) / 3);
 
-                                var y1 = k1 + k3;
+                                var k2 = z * Math.Cos((fi + 2 * Math.PI * 1) / 3);
+                              //  var k2_image = z * Math.Sin((fi + 2 * Math.PI * 1) / 3);
+
+                                var k3 = z * Math.Cos((fi + 2 * Math.PI * 2) / 3);
+                               // var k3_img = z * Math.Sin((fi + 2 * Math.PI * 2) / 3);
+
+                                //  MessageBox.Show($"{k1}  {k2}  {k3}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                var y1 = k1 + k1;
                                 var y2 = k2 + k2;
-                                var y3 = k3 + k1;
+                                var y3 = k3 + k3;
 
                                 x1_real = y1 - b1 / 3;
                                 x2_real = y2 - b1 / 3;
                                 x3_real = y3 - b1 / 3;
 
-                                x1 = x1_real.ToString();
-                                x2 = x2_real.ToString();
-                                x3 = x3_real.ToString();
+                                x1 = Math.Round(x1_real, 2).ToString();
+                                x2 = Math.Round(x2_real, 2).ToString();
+                                x3 = Math.Round(x3_real, 2).ToString();
                             }
 
-                           
+
 
                             _roots[0].Text = x1;
                             _roots[1].Text = x2;
