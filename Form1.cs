@@ -20,6 +20,7 @@ namespace PolynomialCalculation
         private List<TextBox> _func = new List<TextBox>();
         private int _degree;
         private int _maxDegree = 5;
+        private int _accuracy = 2;
         public MainForm()
         {
             InitializeComponent();
@@ -71,6 +72,14 @@ namespace PolynomialCalculation
             EquationVisibility();
         }
 
+
+        private void trackBarAccuracy_Scroll(object sender, EventArgs e)
+        {
+            _accuracy = trackBarAccuracy.Value;
+            textBoxAccuracy.Text = _accuracy.ToString();
+         //   MessageBox.Show($"{_accuracy}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
         private void buttonFindRoots_Click(object sender, EventArgs e)
         {
             try
@@ -82,7 +91,7 @@ namespace PolynomialCalculation
                             var b = Convert.ToDouble(_coefficients[0].Text);
                             var a = Convert.ToDouble(_coefficients[1].Text);
                             var root = -b / a;
-                            _roots[0].Text = root.ToString();
+                            _roots[0].Text = Math.Round(root, _accuracy).ToString();
 
                             chart.Series["Func"].Points.Clear();
 
@@ -114,8 +123,8 @@ namespace PolynomialCalculation
                                 var root1 = (-b + sqrtDis) / (2 * a);
                                 var root2 = (-b - sqrtDis) / (2 * a);
 
-                                _roots[0].Text = Math.Round(root1, 2).ToString();
-                                _roots[1].Text = Math.Round(root2, 2).ToString();
+                                _roots[0].Text = Math.Round(root1, _accuracy).ToString();
+                                _roots[1].Text = Math.Round(root2, _accuracy).ToString();
 
                                 _func[0].Text = Math.Round(a * Math.Pow(root1, 2) + b * root1 + c, 0).ToString();
                                 _func[1].Text = Math.Round(a * Math.Pow(root2, 2) + b * root2 + c, 0).ToString();
@@ -127,8 +136,8 @@ namespace PolynomialCalculation
                                 var root_real = -b / (2 * a);
                                 var root_img = sqrtDis / (2 * a);
 
-                                _roots[0].Text = Math.Round(root_real, 2).ToString() + " + i" + Math.Round(root_img, 2).ToString();
-                                _roots[1].Text = Math.Round(root_real, 2).ToString() + " - i" + Math.Round(root_img, 2).ToString();
+                                _roots[0].Text = Math.Round(root_real, _accuracy).ToString() + " + i" + Math.Round(root_img, _accuracy).ToString();
+                                _roots[1].Text = Math.Round(root_real, _accuracy).ToString() + " - i" + Math.Round(root_img, _accuracy).ToString();
 
                                 _func[0].Text = Math.Round(a * (Math.Pow(root_real, 2) + -Math.Pow(root_img, 2)) + b * root_real + c, 0).ToString();
                                 _func[1].Text = Math.Round(a * (Math.Pow(root_real, 2) + -Math.Pow(root_img, 2)) + b * root_real + c, 0).ToString();
@@ -194,7 +203,14 @@ namespace PolynomialCalculation
 
                                 //x2_real = Math.Round(y2_real - b1 / 3, 2);
                                  x2_real = y2_real - b1 / 3;
-                                x2 = Math.Round(x2_real, 2) + " + i" + Math.Round(x_img, 2);
+                                if (x_img > 0)
+                                {
+                                    x2 = Math.Round(x2_real, 2) + " + i" + Math.Round(x_img, 2);
+                                }
+                                else
+                                {
+                                    x2 = Math.Round(x2_real, 2).ToString();
+                                }
 
                                 //x3_real = Math.Round(y3_real - b1 / 3, 2);
                                  x3_real = y3_real - b1 / 3;
@@ -218,9 +234,9 @@ namespace PolynomialCalculation
                                 x2_real = y2 - b1 / 3;
                                 x3_real = y3 - b1 / 3;
 
-                                x1 = Math.Round(x1_real, 2).ToString();
-                                x2 = Math.Round(x2_real, 2).ToString();
-                                x3 = Math.Round(x3_real, 2).ToString();
+                                x1 = Math.Round(x1_real, _accuracy).ToString();
+                                x2 = Math.Round(x2_real, _accuracy).ToString();
+                                x3 = Math.Round(x3_real, _accuracy).ToString();
                             }
                             else
                             {
@@ -281,9 +297,9 @@ namespace PolynomialCalculation
                                 x2_real = y2 - b1 / 3;
                                 x3_real = y3 - b1 / 3;
 
-                                x1 = Math.Round(x1_real, 2).ToString();
-                                x2 = Math.Round(x2_real, 2).ToString();
-                                x3 = Math.Round(x3_real, 2).ToString();
+                                x1 = Math.Round(x1_real, _accuracy).ToString();
+                                x2 = Math.Round(x2_real, _accuracy).ToString();
+                                x3 = Math.Round(x3_real, _accuracy).ToString();
                             }
 
 
@@ -305,9 +321,9 @@ namespace PolynomialCalculation
                                 chart.Series["Func"].Points.AddXY(x, y);
                             }
 
-                            _func[0].Text = (Math.Round(a0 * Math.Pow(x1_real, 3) + a1 * Math.Pow(x1_real, 2) + a2 * x1_real + a3, 0)).ToString();
-                            _func[1].Text = (Math.Round(a0 * (Math.Pow(x2_real, 3) + (3 * x2_real * -Math.Pow(x_img, 2))) + a1 * (Math.Pow(x2_real, 2) + -Math.Pow(x_img, 2)) + a2 * x2_real + a3, 0)).ToString();
-                            _func[2].Text = (Math.Round(a0 * (Math.Pow(x3_real, 3) + (3 * x3_real * -Math.Pow(x_img, 2))) + a1 * (Math.Pow(x3_real, 2) + -Math.Pow(x_img, 2)) + a2 * x3_real + a3, 0)).ToString();
+                            _func[0].Text = (Math.Round(a0 * Math.Pow(x1_real, 3) + a1 * Math.Pow(x1_real, 2) + a2 * x1_real + a3, 4)).ToString();
+                            _func[1].Text = (Math.Round(a0 * (Math.Pow(x2_real, 3) + (3 * x2_real * -Math.Pow(x_img, 2))) + a1 * (Math.Pow(x2_real, 2) + -Math.Pow(x_img, 2)) + a2 * x2_real + a3, 4)).ToString();
+                            _func[2].Text = (Math.Round(a0 * (Math.Pow(x3_real, 3) + (3 * x3_real * -Math.Pow(x_img, 2))) + a1 * (Math.Pow(x3_real, 2) + -Math.Pow(x_img, 2)) + a2 * x3_real + a3, 4)).ToString();
                         }
                         break;
                     case 4:
@@ -351,14 +367,16 @@ namespace PolynomialCalculation
             for (int i = 0; i <= _degree; i++)
             {
                 _coefficients[i].Visible = true;
+                _coefficients[i].Text = "";
                 _variables[i].Visible = true;
 
                 if (i != _degree)
                 {
                     _rootLabels[i].Visible = true;
                     _roots[i].Visible = true;
+                    _roots[i].Text = "";
                     _func[i].Visible = true;
-
+                    _func[i].Text = "";
                     _funcLabels[i].Visible = true;
                 }
             }
@@ -444,5 +462,6 @@ namespace PolynomialCalculation
         {
             OnKeyPressed(sender, e);
         }
+
     }
 }

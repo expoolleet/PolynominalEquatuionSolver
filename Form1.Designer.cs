@@ -73,9 +73,14 @@ namespace PolynomialCalculation
             this.labelVar5 = new System.Windows.Forms.Label();
             this.labelVar0 = new System.Windows.Forms.Label();
             this.groupBoxEquation = new System.Windows.Forms.GroupBox();
+            this.trackBarAccuracy = new System.Windows.Forms.TrackBar();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBoxAccuracy = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             this.groupBoxEquation.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarAccuracy)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelDegree
@@ -352,6 +357,7 @@ namespace PolynomialCalculation
             // comboBoxDegree
             // 
             this.comboBoxDegree.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxDegree.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBoxDegree.FormattingEnabled = true;
             this.comboBoxDegree.Items.AddRange(new object[] {
             "1",
@@ -543,11 +549,43 @@ namespace PolynomialCalculation
             this.groupBoxEquation.TabIndex = 12;
             this.groupBoxEquation.TabStop = false;
             // 
+            // trackBarAccuracy
+            // 
+            this.trackBarAccuracy.Location = new System.Drawing.Point(6, 28);
+            this.trackBarAccuracy.Maximum = 15;
+            this.trackBarAccuracy.Name = "trackBarAccuracy";
+            this.trackBarAccuracy.Size = new System.Drawing.Size(162, 45);
+            this.trackBarAccuracy.TabIndex = 18;
+            this.trackBarAccuracy.Value = 2;
+            this.trackBarAccuracy.Scroll += new System.EventHandler(this.trackBarAccuracy_Scroll);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.textBoxAccuracy);
+            this.groupBox2.Controls.Add(this.trackBarAccuracy);
+            this.groupBox2.Location = new System.Drawing.Point(463, 12);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(263, 79);
+            this.groupBox2.TabIndex = 19;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Знаков после запятой";
+            // 
+            // textBoxAccuracy
+            // 
+            this.textBoxAccuracy.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxAccuracy.Location = new System.Drawing.Point(174, 28);
+            this.textBoxAccuracy.Name = "textBoxAccuracy";
+            this.textBoxAccuracy.ReadOnly = true;
+            this.textBoxAccuracy.Size = new System.Drawing.Size(79, 24);
+            this.textBoxAccuracy.TabIndex = 33;
+            this.textBoxAccuracy.Text = "2";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(735, 446);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.chart);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBoxEquation);
@@ -565,6 +603,9 @@ namespace PolynomialCalculation
             ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
             this.groupBoxEquation.ResumeLayout(false);
             this.groupBoxEquation.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarAccuracy)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -613,6 +654,9 @@ namespace PolynomialCalculation
         private System.Windows.Forms.Label labelVar5;
         private System.Windows.Forms.Label labelVar0;
         private System.Windows.Forms.GroupBox groupBoxEquation;
+        private System.Windows.Forms.TrackBar trackBarAccuracy;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox textBoxAccuracy;
     }
 }
 
