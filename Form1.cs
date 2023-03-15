@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace PolynomialCalculation
 {
@@ -21,6 +22,12 @@ namespace PolynomialCalculation
         private int _degree;
         private int _maxDegree = 5;
         private int _accuracy = 2;
+        private int numberOfZoom;
+
+        public int xMin { get; set; } = -10;
+        public int xMax { get; set; } = 10;
+        public int yMin { get; set; } 
+        public int yMax { get; set; }
         public MainForm()
         {
             InitializeComponent();
@@ -68,6 +75,11 @@ namespace PolynomialCalculation
         private void comboBoxDegree_SelectedIndexChanged(object sender, EventArgs e)
         {
             _degree = Convert.ToInt16(comboBoxDegree.SelectedItem);
+
+            chart.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
+            chart.ChartAreas[0].AxisY.ScaleView.Zoomable = true;
+            chart.ChartAreas[0].AxisX.LabelStyle.Format = "0.00";
+            chart.ChartAreas[0].AxisY.LabelStyle.Format = "0.00";
 
             EquationVisibility();
         }
@@ -199,22 +211,22 @@ namespace PolynomialCalculation
 
                                // x1_real = Math.Round(y1 - b1 / 3, 15);
                                   x1_real = y1 - b1 / 3;
-                                x1 = Math.Round(x1_real, 2).ToString();
+                                x1 = Math.Round(x1_real, _accuracy).ToString();
 
                                 //x2_real = Math.Round(y2_real - b1 / 3, 2);
                                  x2_real = y2_real - b1 / 3;
                                 if (x_img > 0)
                                 {
-                                    x2 = Math.Round(x2_real, 2) + " + i" + Math.Round(x_img, 2);
+                                    x2 = Math.Round(x2_real, _accuracy) + " + i" + Math.Round(x_img, _accuracy);
                                 }
                                 else
                                 {
-                                    x2 = Math.Round(x2_real, 2).ToString();
+                                    x2 = Math.Round(x2_real, _accuracy).ToString();
                                 }
 
                                 //x3_real = Math.Round(y3_real - b1 / 3, 2);
                                  x3_real = y3_real - b1 / 3;
-                                x3 = Math.Round(x3_real, 2) + " - i" + Math.Round(x_img, 2);
+                                x3 = Math.Round(x3_real, _accuracy) + " - i" + Math.Round(x_img, _accuracy);
 
                             }
                             else if (Q == 0)
@@ -314,7 +326,7 @@ namespace PolynomialCalculation
 
                             int y;
 
-                            for (int x = -20; x <= 20; x++)
+                            for (int x = xMin; x <= xMax; x++)
                             {
                                 y = (int)(a0 * Math.Pow(x, 3) + a1 * Math.Pow(x, 2) + a2 * x + a3);
 
@@ -381,6 +393,8 @@ namespace PolynomialCalculation
                 }
             }
         }
+
+        #region onkeypressed
 
         private void OnKeyPressed(object sender, KeyPressEventArgs e)
         {
@@ -463,5 +477,66 @@ namespace PolynomialCalculation
             OnKeyPressed(sender, e);
         }
 
+        #endregion
+
+        private void chart_MouseWheel(object sender, MouseEventArgs e)
+        {
+            var chart = (Chart)sender;
+            var xAxis = chart.ChartAreas[0].AxisX;
+            var yAxis = chart.ChartAreas[0].AxisY;
+
+            var xMin = xAxis.ScaleView.ViewMinimum;
+            var xMax = xAxis.ScaleView.ViewMaximum;
+            var yMin = yAxis.ScaleView.ViewMinimum;
+            var yMax = yAxis.ScaleView.ViewMaximum;
+
+            int IntervalX = 3;
+            int IntervalY = 3;
+            try
+            {
+                if (e.Delta < 0 && numberOfZoom > 0) // Scrolled down.
+                {
+                    var posXStart = xAxis.PixelPositionToValue(e.Location.X) - IntervalX * 2 / Math.Pow(2, numberOfZoom);
+                    var posXFinish = xAxis.PixelPositionToValue(e.Location.X) + IntervalX * 2 / Math.Pow(2, numberOfZoom);
+                    var posYStart = yAxis.PixelPositionToValue(e.Location.Y) - IntervalY * 2 / Math.Pow(2, numberOfZoom);
+                    var posYFinish = yAxis.PixelPositionToValue(e.Location.Y) + IntervalY * 2 / Math.Pow(2, numberOfZoom);
+
+                    if (posXStart < 0) posXStart = 0;
+                    if (posYStart < 0) posYStart = 0;
+                    if (posYFinish > yAxis.Maximum) posYFinish = yAxis.Maximum;
+                    if (posXFinish > xAxis.Maximum) posYFinish = xAxis.Maximum;
+                    xAxis.ScaleView.Zoom(posXStart, posXFinish);
+                    yAxis.ScaleView.Zoom(posYStart, posYFinish);
+                    numberOfZoom--;
+                }
+                else if (e.Delta < 0 && numberOfZoom == 0) //Last scrolled dowm
+                {
+                    yAxis.ScaleView.ZoomReset();
+                    xAxis.ScaleView.ZoomReset();
+                }
+                else if (e.Delta > 0) // Scrolled up.
+                {
+
+                    var posXStart = xAxis.PixelPositionToValue(e.Location.X) - IntervalX / Math.Pow(2, numberOfZoom);
+                    var posXFinish = xAxis.PixelPositionToValue(e.Location.X) + IntervalX / Math.Pow(2, numberOfZoom);
+                    var posYStart = yAxis.PixelPositionToValue(e.Location.Y) - IntervalY / Math.Pow(2, numberOfZoom);
+                    var posYFinish = yAxis.PixelPositionToValue(e.Location.Y) + IntervalY / Math.Pow(2, numberOfZoom);
+
+                    xAxis.ScaleView.Zoom(posXStart, posXFinish);
+                    yAxis.ScaleView.Zoom(posYStart, posYFinish);
+                    numberOfZoom++;
+                }
+
+                if (numberOfZoom < 0) numberOfZoom = 0;
+            }
+            catch { }
+        }
+
+        private void buttonLimits_Click(object sender, EventArgs e)
+        {
+            FormLimits limits = new FormLimits(this);
+
+            limits.ShowDialog();
+        }
     }
 }
