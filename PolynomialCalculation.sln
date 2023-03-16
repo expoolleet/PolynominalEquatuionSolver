@@ -5,6 +5,12 @@ VisualStudioVersion = 16.0.32106.194
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolynomialCalculation", "PolynomialCalculation.csproj", "{CA45859C-03A5-455A-B2AC-F427B6D86CF2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FACCC6EC-77AA-4C7C-A2D4-04AD89E92E05}"
+	ProjectSection(SolutionItems) = preProject
+		Equation.cs = Equation.cs
+		QuadraticEquation.cs = QuadraticEquation.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

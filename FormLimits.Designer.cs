@@ -45,16 +45,19 @@
             // 
             // textBoxXmin
             // 
-            this.textBoxXmin.Location = new System.Drawing.Point(69, 34);
+            this.textBoxXmin.Location = new System.Drawing.Point(70, 28);
+            this.textBoxXmin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxXmin.Name = "textBoxXmin";
-            this.textBoxXmin.Size = new System.Drawing.Size(100, 22);
+            this.textBoxXmin.Size = new System.Drawing.Size(76, 20);
             this.textBoxXmin.TabIndex = 0;
+            this.textBoxXmin.Text = "-10";
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(124, 123);
+            this.buttonOK.Location = new System.Drawing.Point(109, 101);
+            this.buttonOK.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(142, 63);
+            this.buttonOK.Size = new System.Drawing.Size(106, 51);
             this.buttonOK.TabIndex = 1;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
@@ -64,7 +67,8 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(2, 34);
+            this.label1.Location = new System.Drawing.Point(2, 28);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 20);
             this.label1.TabIndex = 2;
@@ -76,9 +80,11 @@
             this.groupBox1.Controls.Add(this.textBoxXmax);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.textBoxXmin);
-            this.groupBox1.Location = new System.Drawing.Point(10, 10);
+            this.groupBox1.Location = new System.Drawing.Point(8, 8);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(183, 109);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Size = new System.Drawing.Size(150, 89);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Пределы по оси X";
@@ -87,7 +93,8 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(2, 62);
+            this.label2.Location = new System.Drawing.Point(2, 50);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 20);
             this.label2.TabIndex = 4;
@@ -95,10 +102,12 @@
             // 
             // textBoxXmax
             // 
-            this.textBoxXmax.Location = new System.Drawing.Point(69, 62);
+            this.textBoxXmax.Location = new System.Drawing.Point(70, 50);
+            this.textBoxXmax.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxXmax.Name = "textBoxXmax";
-            this.textBoxXmax.Size = new System.Drawing.Size(100, 22);
+            this.textBoxXmax.Size = new System.Drawing.Size(76, 20);
             this.textBoxXmax.TabIndex = 3;
+            this.textBoxXmax.Text = "10";
             // 
             // groupBox2
             // 
@@ -106,9 +115,11 @@
             this.groupBox2.Controls.Add(this.textBoxYmax);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.textBoxYmin);
-            this.groupBox2.Location = new System.Drawing.Point(199, 12);
+            this.groupBox2.Location = new System.Drawing.Point(162, 11);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(183, 107);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Size = new System.Drawing.Size(152, 87);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Пределы по оси Y";
@@ -117,7 +128,8 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(6, 62);
+            this.label3.Location = new System.Drawing.Point(4, 50);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 20);
             this.label3.TabIndex = 4;
@@ -125,16 +137,19 @@
             // 
             // textBoxYmax
             // 
-            this.textBoxYmax.Location = new System.Drawing.Point(69, 62);
+            this.textBoxYmax.Location = new System.Drawing.Point(69, 48);
+            this.textBoxYmax.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxYmax.Name = "textBoxYmax";
-            this.textBoxYmax.Size = new System.Drawing.Size(100, 22);
+            this.textBoxYmax.Size = new System.Drawing.Size(76, 20);
             this.textBoxYmax.TabIndex = 3;
+            this.textBoxYmax.Text = "30";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(6, 34);
+            this.label4.Location = new System.Drawing.Point(4, 28);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(49, 20);
             this.label4.TabIndex = 2;
@@ -142,20 +157,24 @@
             // 
             // textBoxYmin
             // 
-            this.textBoxYmin.Location = new System.Drawing.Point(69, 34);
+            this.textBoxYmin.Location = new System.Drawing.Point(69, 26);
+            this.textBoxYmin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxYmin.Name = "textBoxYmin";
-            this.textBoxYmin.Size = new System.Drawing.Size(100, 22);
+            this.textBoxYmin.Size = new System.Drawing.Size(76, 20);
             this.textBoxYmin.TabIndex = 0;
+            this.textBoxYmin.Text = "0";
             // 
             // FormLimits
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(389, 198);
+            this.ClientSize = new System.Drawing.Size(323, 161);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buttonOK);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FormLimits";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Пределы";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

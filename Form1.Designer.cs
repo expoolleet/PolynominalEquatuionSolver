@@ -30,9 +30,9 @@ namespace PolynomialCalculation
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.buttonFindRoots = new System.Windows.Forms.Button();
             this.labelRoot1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -77,6 +77,8 @@ namespace PolynomialCalculation
             this.textBoxAccuracy = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.buttonLimits = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             this.groupBoxEquation.SuspendLayout();
@@ -88,7 +90,7 @@ namespace PolynomialCalculation
             // buttonFindRoots
             // 
             this.buttonFindRoots.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonFindRoots.Location = new System.Drawing.Point(561, 215);
+            this.buttonFindRoots.Location = new System.Drawing.Point(563, 216);
             this.buttonFindRoots.Margin = new System.Windows.Forms.Padding(4);
             this.buttonFindRoots.Name = "buttonFindRoots";
             this.buttonFindRoots.Size = new System.Drawing.Size(319, 58);
@@ -354,19 +356,19 @@ namespace PolynomialCalculation
             // 
             // chart
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart.Legends.Add(legend2);
-            this.chart.Location = new System.Drawing.Point(25, 528);
+            chartArea1.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart.Legends.Add(legend1);
+            this.chart.Location = new System.Drawing.Point(13, 378);
             this.chart.Margin = new System.Windows.Forms.Padding(4);
             this.chart.Name = "chart";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series2.Legend = "Legend1";
-            series2.Name = "Func";
-            this.chart.Series.Add(series2);
-            this.chart.Size = new System.Drawing.Size(866, 476);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Legend = "Legend1";
+            series1.Name = "Func";
+            this.chart.Series.Add(series1);
+            this.chart.Size = new System.Drawing.Size(488, 374);
             this.chart.TabIndex = 15;
             this.chart.Text = "chart1";
             this.chart.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.chart_MouseWheel);
@@ -626,18 +628,40 @@ namespace PolynomialCalculation
             // buttonLimits
             // 
             this.buttonLimits.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonLimits.Location = new System.Drawing.Point(364, 449);
+            this.buttonLimits.Location = new System.Drawing.Point(529, 573);
             this.buttonLimits.Name = "buttonLimits";
-            this.buttonLimits.Size = new System.Drawing.Size(178, 71);
+            this.buttonLimits.Size = new System.Drawing.Size(178, 59);
             this.buttonLimits.TabIndex = 21;
             this.buttonLimits.Text = "Изменить границы графика";
             this.buttonLimits.UseVisualStyleBackColor = true;
             this.buttonLimits.Click += new System.EventHandler(this.buttonLimits_Click);
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.Location = new System.Drawing.Point(713, 572);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(178, 59);
+            this.button1.TabIndex = 22;
+            this.button1.Text = "Построить график";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button2.Location = new System.Drawing.Point(744, 713);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(147, 65);
+            this.button2.TabIndex = 23;
+            this.button2.Text = "Окно с графиком";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(906, 1017);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonLimits);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -709,6 +733,8 @@ namespace PolynomialCalculation
         private System.Windows.Forms.TextBox textBoxAccuracy;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button buttonLimits;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 

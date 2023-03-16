@@ -26,8 +26,8 @@ namespace PolynomialCalculation
 
         public int xMin { get; set; } = -10;
         public int xMax { get; set; } = 10;
-        public int yMin { get; set; } 
-        public int yMax { get; set; }
+        public int yMin { get; set; }
+        public int yMax { get; set; } = 30;
         public MainForm()
         {
             InitializeComponent();
@@ -161,9 +161,14 @@ namespace PolynomialCalculation
 
                             for (int x = -10; x <= 10; x++)
                             {
-                                y = (int)(a * x * x + b * x + c);
+                                 y = (int)(a * x * x + b * x + c);
+                                
+                                if (y <= yMax)
+                                {
+                                    chart.Series["Func"].Points.AddXY(x, y);
+                                }
 
-                                chart.Series["Func"].Points.AddXY(x, y);
+                                
                             }
                         }
                         break;
@@ -538,5 +543,7 @@ namespace PolynomialCalculation
 
             limits.ShowDialog();
         }
+
+        
     }
 }
