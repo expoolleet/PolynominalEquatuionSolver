@@ -1,28 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using AlgebraicEquations;
 
 namespace PolynomialCalculation
 {
+    public delegate void AccuracyOfDecimalPlaces(int value);
+
     public partial class MainForm : Form
     {
+        public event AccuracyOfDecimalPlaces ChangeAccuracyOfDecimalPlaces;
+
         private List<TextBox> _coefficients = new List<TextBox>();
         private List<Label> _variables = new List<Label>();
         private List<TextBox> _roots = new List<TextBox>();
         private List<Label> _rootLabels = new List<Label>();
         private List<Label> _funcLabels = new List<Label>();
         private List<TextBox> _func = new List<TextBox>();
+        private List<Panel> _panels = new List<Panel>();
         private int _degree;
         private int _maxDegree = 5;
         private int _accuracy = 2;
-        private int numberOfZoom;
+        private int _numberOfZoom;
+
+
+        public int AccuracyOfDecimalPlaces
+        {
+            get
+            {
+                return _accuracy;
+            }
+            private set
+            {
+                AccuracyOfDecimalPlaces = _accuracy;
+            }
+        }
 
         public int xMin { get; set; } = -10;
         public int xMax { get; set; } = 10;
@@ -31,6 +48,9 @@ namespace PolynomialCalculation
         public MainForm()
         {
             InitializeComponent();
+
+           // _panelLeftPadding = flowLayoutPanel.Padding.Left;
+
             _coefficients.Add(textBoxCoefficient0);
             _coefficients.Add(textBoxCoefficient1);
             _coefficients.Add(textBoxCoefficient2);
@@ -69,17 +89,27 @@ namespace PolynomialCalculation
             _funcLabels.Add(labelFunc4);
             _funcLabels.Add(labelFunc5);
 
-
-        }
-
-        private void comboBoxDegree_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            _degree = Convert.ToInt16(comboBoxDegree.SelectedItem);
+            _panels.Add(panel1);
+            _panels.Add(panel2);
+            _panels.Add(panel3);
+            _panels.Add(panel4);
+            _panels.Add(panel5);
 
             chart.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
             chart.ChartAreas[0].AxisY.ScaleView.Zoomable = true;
             chart.ChartAreas[0].AxisX.LabelStyle.Format = "0.00";
             chart.ChartAreas[0].AxisY.LabelStyle.Format = "0.00";
+        }
+
+        private void comboBoxDegree_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (labelEqualZero.Visible == false && labelfx.Visible == false)
+            {
+                labelEqualZero.Visible = true;
+                labelfx.Visible = true;
+            }
+
+            _degree = Convert.ToInt16(comboBoxDegree.SelectedItem);
 
             EquationVisibility();
         }
@@ -89,258 +119,60 @@ namespace PolynomialCalculation
         {
             _accuracy = trackBarAccuracy.Value;
             textBoxAccuracy.Text = _accuracy.ToString();
-         //   MessageBox.Show($"{_accuracy}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ChangeAccuracyOfDecimalPlaces?.Invoke(_accuracy);
         }
 
         private void buttonFindRoots_Click(object sender, EventArgs e)
         {
+            double coef0 = _coefficients[0].Text == "" ? 0 : Convert.ToDouble(_coefficients[0].Text);
+            double coef1 = _coefficients[1].Text == "" ? 0 : Convert.ToDouble(_coefficients[1].Text);
+            double coef2 = _coefficients[2].Text == "" ? 0 : Convert.ToDouble(_coefficients[2].Text);
+            double coef3 = _coefficients[3].Text == "" ? 0 : Convert.ToDouble(_coefficients[3].Text);
+            double coef4 = _coefficients[4].Text == "" ? 0 : Convert.ToDouble(_coefficients[4].Text);
+            double coef5 = _coefficients[5].Text == "" ? 0 : Convert.ToDouble(_coefficients[5].Text);
+
             try
             {
                 switch (_degree)
                 {
                     case 1:
                         {
-                            var b = Convert.ToDouble(_coefficients[0].Text);
-                            var a = Convert.ToDouble(_coefficients[1].Text);
-                            var root = -b / a;
-                            _roots[0].Text = Math.Round(root, _accuracy).ToString();
+                            var linearEquation = new LinearEquation(this);
 
-                            chart.Series["Func"].Points.Clear();
+                            var root = linearEquation.SolveEquation(coef1, coef0);
+;
+                           _roots[0].Text = root[0].GetRoot();
 
-                            int y;
-
-                            for (int x = -10; x <= 10; x++)
-                            {
-                                y = (int)(a * x + b);
-
-                                chart.Series["Func"].Points.AddXY(x, y);
-                            }
-
-                            _func[0].Text = (root * a + b).ToString();
+                           _func[0].Text = Math.Round(root[0].RealPart * coef1 + coef0, _accuracy).ToString();
                         }
 
                         break;
                     case 2:
                         {
-                            var c = Convert.ToDouble(_coefficients[0].Text);
-                            var b = Convert.ToDouble(_coefficients[1].Text);
-                            var a = Convert.ToDouble(_coefficients[2].Text);
+                            var quadraticEquation = new QuadraticEquation(this);
 
-                            double discriminant = Math.Pow(b, 2) - 4 * a * c;
+                            var roots = quadraticEquation.SolveEquation(coef2, coef1, coef0);
 
-                            if (discriminant >= 0)
-                            {
-                                var sqrtDis = Math.Sqrt(discriminant);
+                            _roots[0].Text = roots[0].GetRoot();
+                            _roots[1].Text = roots[1].GetRoot();
 
-                                var root1 = (-b + sqrtDis) / (2 * a);
-                                var root2 = (-b - sqrtDis) / (2 * a);
-
-                                _roots[0].Text = Math.Round(root1, _accuracy).ToString();
-                                _roots[1].Text = Math.Round(root2, _accuracy).ToString();
-
-                                _func[0].Text = Math.Round(a * Math.Pow(root1, 2) + b * root1 + c, 0).ToString();
-                                _func[1].Text = Math.Round(a * Math.Pow(root2, 2) + b * root2 + c, 0).ToString();
-                            }
-                            else
-                            {
-                                var sqrtDis = Math.Sqrt(Math.Abs(discriminant));
-
-                                var root_real = -b / (2 * a);
-                                var root_img = sqrtDis / (2 * a);
-
-                                _roots[0].Text = Math.Round(root_real, _accuracy).ToString() + " + i" + Math.Round(root_img, _accuracy).ToString();
-                                _roots[1].Text = Math.Round(root_real, _accuracy).ToString() + " - i" + Math.Round(root_img, _accuracy).ToString();
-
-                                _func[0].Text = Math.Round(a * (Math.Pow(root_real, 2) + -Math.Pow(root_img, 2)) + b * root_real + c, 0).ToString();
-                                _func[1].Text = Math.Round(a * (Math.Pow(root_real, 2) + -Math.Pow(root_img, 2)) + b * root_real + c, 0).ToString();
-                            }
-
-                            chart.Series["Func"].Points.Clear();
-
-                            int y;
-
-                            for (int x = -10; x <= 10; x++)
-                            {
-                                 y = (int)(a * x * x + b * x + c);
-                                
-                                if (y <= yMax)
-                                {
-                                    chart.Series["Func"].Points.AddXY(x, y);
-                                }
-
-                                
-                            }
+                            _func[0].Text = Math.Round(coef2 * (Math.Pow(roots[0].RealPart, 2) + -Math.Pow(roots[0].ImgPart, 2)) + coef1 * roots[0].RealPart + coef0, _accuracy).ToString();
+                            _func[1].Text = Math.Round(coef2 * (Math.Pow(roots[1].RealPart, 2) + -Math.Pow(roots[1].ImgPart, 2)) + coef1 * roots[1].RealPart + coef0, _accuracy).ToString();
                         }
                         break;
                     case 3:
                         {
-                            var a0 = Convert.ToDouble(_coefficients[3].Text);
-                            var a1 = Convert.ToDouble(_coefficients[2].Text);
-                            var a2 = Convert.ToDouble(_coefficients[1].Text);
-                            var a3 = Convert.ToDouble(_coefficients[0].Text);
+                            var qubicEquation = new QubicEquation(this);
 
-                            var b1 = a1 / a0;
-                            var b2 = a2 / a0;
-                            var b3 = a3 / a0;
+                            var roots = qubicEquation.SolveEquation(coef3, coef2, coef1, coef0);
 
-                            var p = -Math.Pow(b1, 2) / 3 + b2;
-                            var q = 2 * Math.Pow(b1, 3) / 27 - b1 * b2 / 3 + b3;
+                            _roots[0].Text = roots[0].GetRoot();
+                            _roots[1].Text = roots[1].GetRoot();
+                            _roots[2].Text = roots[2].GetRoot();
 
-                            var Q = Math.Pow(p / 3, 3) + Math.Pow(q / 2, 2);
-                           // MessageBox.Show($"{Q}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                            string x1 = "";
-                            string x2 = "";
-                            string x3 = "";
-
-                            double x1_real = 0;
-                            double x2_real = 0;
-                            double x3_real = 0;
-                            double x_img = 0;
-
-                            if (Q > 0)
-                            {
-                                var alpha = double.IsNaN(Math.Pow(-(q / 2) + Math.Sqrt(Q), 1.0 / 3)) ? -Math.Pow(Math.Abs(-(q / 2) + Math.Sqrt(Q)), 1.0 / 3) : Math.Pow(-(q / 2) + Math.Sqrt(Q), 1.0 / 3);
-                                var beta = double.IsNaN(Math.Pow(-(q / 2) - Math.Sqrt(Q), 1.0 / 3)) ? -Math.Pow(Math.Abs(-(q / 2) - Math.Sqrt(Q)), 1.0 / 3) : Math.Pow(-(q / 2) - Math.Sqrt(Q), 1.0 / 3);
-
-                                var y1 = alpha + beta;
-
-
-
-                                var y2_real = -(alpha + beta) / 2;
-                                var y_img = (alpha - beta) / 2 * Math.Sqrt(3);
-
-                                var y3_real = y2_real;
-
-                                x_img = y_img;
-
-                               // x1_real = Math.Round(y1 - b1 / 3, 15);
-                                  x1_real = y1 - b1 / 3;
-                                x1 = Math.Round(x1_real, _accuracy).ToString();
-
-                                //x2_real = Math.Round(y2_real - b1 / 3, 2);
-                                 x2_real = y2_real - b1 / 3;
-                                if (x_img > 0)
-                                {
-                                    x2 = Math.Round(x2_real, _accuracy) + " + i" + Math.Round(x_img, _accuracy);
-                                }
-                                else
-                                {
-                                    x2 = Math.Round(x2_real, _accuracy).ToString();
-                                }
-
-                                //x3_real = Math.Round(y3_real - b1 / 3, 2);
-                                 x3_real = y3_real - b1 / 3;
-                                x3 = Math.Round(x3_real, _accuracy) + " - i" + Math.Round(x_img, _accuracy);
-
-                            }
-                            else if (Q == 0)
-                            {
-                                var alpha = double.IsNaN(Math.Pow(-(q / 2) + Math.Sqrt(Q), 1.0 / 3)) ? -Math.Pow(Math.Abs(-(q / 2) + Math.Sqrt(Q)), 1.0 / 3) : Math.Pow(-(q / 2) + Math.Sqrt(Q), 1.0 / 3);
-                             
-                                
-                                 //α = β
-                                 //y1 = 2α
-                                 //y2 = y3 = -α
-
-                                var y1 = 2 * alpha;
-                                var y2 = -alpha;
-                                var y3 = y2;
-
-                                x1_real = y1 - b1 / 3;
-                                x2_real = y2 - b1 / 3;
-                                x3_real = y3 - b1 / 3;
-
-                                x1 = Math.Round(x1_real, _accuracy).ToString();
-                                x2 = Math.Round(x2_real, _accuracy).ToString();
-                                x3 = Math.Round(x3_real, _accuracy).ToString();
-                            }
-                            else
-                            {
-                                // var z = Math.Pow(Math.Abs(-q / 2 + (Double.IsNaN(Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27)) ? 0 : Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27))), 1.0 / 3);
-
-                                var x_real = -q / 2;
-                                var y_img = Math.Sqrt(Math.Abs(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27));
-
-                                var length = Math.Sqrt(Math.Pow(x_real, 2) + Math.Pow(y_img, 2));
-
-                                var z = Math.Pow(length, 1.0 / 3);
-                                // var z = double.IsNaN(Math.Pow(- q / 2 + (Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27)), 1.0 / 3)) ? -Math.Pow(Math.Abs(-q / 2 + (Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27))), 1.0 / 3) : Math.Pow(-q / 2 + (Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27)), 1.0 / 3);
-                                //   var z2 = Math.Pow(Math.Abs(-q / 2 - (Double.IsNaN(Math.Sqrt(-Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27)) ? 0 : Math.Sqrt(-Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27))), 1.0 / 3);
-
-                                //   MessageBox.Show($"{z1}  {z1}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                // MessageBox.Show($"{Math.Sqrt(Math.Abs(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27) <= 0 ? 1 : Math.Sqrt(Math.Pow(q, 2) / 4 + Math.Pow(p, 3) / 27))}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                                //  var z = z1;
-                                double fi;
-
-                                if (x_real > 0)
-                                {
-                                    fi = Math.Atan(y_img / x_real);
-                                }
-                                else if (x_real < 0 && y_img >= 0)
-                                {
-                                    fi = Math.PI + Math.Atan(y_img / x_real);
-                                }
-                                else if (x_real < 0 && y_img < 0)
-                                {
-                                    fi = -Math.PI + Math.Atan(y_img / x_real);
-                                }
-                                else if (x_real == 0 && y_img > 0)
-                                {
-                                    fi = Math.PI / 2;
-                                }
-                                else
-                                {
-                                    fi = -Math.PI / 2;
-                                }
-
-                                var k1 = z * Math.Cos((fi + 2 * Math.PI * 0) / 3);
-                               // var k1_img = z * Math.Sin((fi + 2 * Math.PI * 0) / 3);
-
-                                var k2 = z * Math.Cos((fi + 2 * Math.PI * 1) / 3);
-                              //  var k2_image = z * Math.Sin((fi + 2 * Math.PI * 1) / 3);
-
-                                var k3 = z * Math.Cos((fi + 2 * Math.PI * 2) / 3);
-                               // var k3_img = z * Math.Sin((fi + 2 * Math.PI * 2) / 3);
-
-                                //  MessageBox.Show($"{k1}  {k2}  {k3}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                                var y1 = k1 + k1;
-                                var y2 = k2 + k2;
-                                var y3 = k3 + k3;
-
-                                x1_real = y1 - b1 / 3;
-                                x2_real = y2 - b1 / 3;
-                                x3_real = y3 - b1 / 3;
-
-                                x1 = Math.Round(x1_real, _accuracy).ToString();
-                                x2 = Math.Round(x2_real, _accuracy).ToString();
-                                x3 = Math.Round(x3_real, _accuracy).ToString();
-                            }
-
-
-
-                            _roots[0].Text = x1;
-                            _roots[1].Text = x2;
-                            _roots[2].Text = x3;
-
-                            // MessageBox.Show($"{y1} - {y2} - {y3}", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                            chart.Series["Func"].Points.Clear();
-
-                            int y;
-
-                            for (int x = xMin; x <= xMax; x++)
-                            {
-                                y = (int)(a0 * Math.Pow(x, 3) + a1 * Math.Pow(x, 2) + a2 * x + a3);
-
-                                chart.Series["Func"].Points.AddXY(x, y);
-                            }
-
-                            _func[0].Text = (Math.Round(a0 * Math.Pow(x1_real, 3) + a1 * Math.Pow(x1_real, 2) + a2 * x1_real + a3, 4)).ToString();
-                            _func[1].Text = (Math.Round(a0 * (Math.Pow(x2_real, 3) + (3 * x2_real * -Math.Pow(x_img, 2))) + a1 * (Math.Pow(x2_real, 2) + -Math.Pow(x_img, 2)) + a2 * x2_real + a3, 4)).ToString();
-                            _func[2].Text = (Math.Round(a0 * (Math.Pow(x3_real, 3) + (3 * x3_real * -Math.Pow(x_img, 2))) + a1 * (Math.Pow(x3_real, 2) + -Math.Pow(x_img, 2)) + a2 * x3_real + a3, 4)).ToString();
+                            _func[0].Text = (Math.Round(coef3 * Math.Pow(roots[0].RealPart, 3) + coef2 * Math.Pow(roots[0].RealPart, 2) + coef1 * roots[0].RealPart + coef0, _accuracy)).ToString();
+                            _func[1].Text = (Math.Round(coef3 * (Math.Pow(roots[1].RealPart, 3) + (3 * roots[1].RealPart * -Math.Pow(roots[1].ImgPart, 2))) + coef2 * (Math.Pow(roots[1].RealPart, 2) + -Math.Pow(roots[1].ImgPart, 2)) + coef1 * roots[1].RealPart + coef0, _accuracy)).ToString();
+                            _func[2].Text = (Math.Round(coef3 * (Math.Pow(roots[2].RealPart, 3) + (3 * roots[2].RealPart * -Math.Pow(roots[2].ImgPart, 2))) + coef2 * (Math.Pow(roots[2].RealPart, 2) + -Math.Pow(roots[2].ImgPart, 2)) + coef1 * roots[2].RealPart + coef0, _accuracy)).ToString();
                         }
                         break;
                     case 4:
@@ -372,8 +204,10 @@ namespace PolynomialCalculation
                 _coefficients[i].Visible = false;
                 _variables[i].Visible = false;
 
+
                 if (i != _maxDegree)
                 {
+                    _panels[i].Visible = false;
                     _rootLabels[i].Visible = false;
                     _roots[i].Visible = false;
                     _func[i].Visible = false;
@@ -384,11 +218,13 @@ namespace PolynomialCalculation
             for (int i = 0; i <= _degree; i++)
             {
                 _coefficients[i].Visible = true;
+
                 _coefficients[i].Text = "";
                 _variables[i].Visible = true;
 
                 if (i != _degree)
                 {
+                    _panels[i].Visible = true;
                     _rootLabels[i].Visible = true;
                     _roots[i].Visible = true;
                     _roots[i].Text = "";
@@ -499,12 +335,12 @@ namespace PolynomialCalculation
             int IntervalY = 3;
             try
             {
-                if (e.Delta < 0 && numberOfZoom > 0) // Scrolled down.
+                if (e.Delta < 0 && _numberOfZoom > 0) // Scrolled down.
                 {
-                    var posXStart = xAxis.PixelPositionToValue(e.Location.X) - IntervalX * 2 / Math.Pow(2, numberOfZoom);
-                    var posXFinish = xAxis.PixelPositionToValue(e.Location.X) + IntervalX * 2 / Math.Pow(2, numberOfZoom);
-                    var posYStart = yAxis.PixelPositionToValue(e.Location.Y) - IntervalY * 2 / Math.Pow(2, numberOfZoom);
-                    var posYFinish = yAxis.PixelPositionToValue(e.Location.Y) + IntervalY * 2 / Math.Pow(2, numberOfZoom);
+                    var posXStart = xAxis.PixelPositionToValue(e.Location.X) - IntervalX * 2 / Math.Pow(2, _numberOfZoom);
+                    var posXFinish = xAxis.PixelPositionToValue(e.Location.X) + IntervalX * 2 / Math.Pow(2, _numberOfZoom);
+                    var posYStart = yAxis.PixelPositionToValue(e.Location.Y) - IntervalY * 2 / Math.Pow(2, _numberOfZoom);
+                    var posYFinish = yAxis.PixelPositionToValue(e.Location.Y) + IntervalY * 2 / Math.Pow(2, _numberOfZoom);
 
                     if (posXStart < 0) posXStart = 0;
                     if (posYStart < 0) posYStart = 0;
@@ -512,9 +348,9 @@ namespace PolynomialCalculation
                     if (posXFinish > xAxis.Maximum) posYFinish = xAxis.Maximum;
                     xAxis.ScaleView.Zoom(posXStart, posXFinish);
                     yAxis.ScaleView.Zoom(posYStart, posYFinish);
-                    numberOfZoom--;
+                    _numberOfZoom--;
                 }
-                else if (e.Delta < 0 && numberOfZoom == 0) //Last scrolled dowm
+                else if (e.Delta < 0 && _numberOfZoom == 0) //Last scrolled dowm
                 {
                     yAxis.ScaleView.ZoomReset();
                     xAxis.ScaleView.ZoomReset();
@@ -522,17 +358,17 @@ namespace PolynomialCalculation
                 else if (e.Delta > 0) // Scrolled up.
                 {
 
-                    var posXStart = xAxis.PixelPositionToValue(e.Location.X) - IntervalX / Math.Pow(2, numberOfZoom);
-                    var posXFinish = xAxis.PixelPositionToValue(e.Location.X) + IntervalX / Math.Pow(2, numberOfZoom);
-                    var posYStart = yAxis.PixelPositionToValue(e.Location.Y) - IntervalY / Math.Pow(2, numberOfZoom);
-                    var posYFinish = yAxis.PixelPositionToValue(e.Location.Y) + IntervalY / Math.Pow(2, numberOfZoom);
+                    var posXStart = xAxis.PixelPositionToValue(e.Location.X) - IntervalX / Math.Pow(2, _numberOfZoom);
+                    var posXFinish = xAxis.PixelPositionToValue(e.Location.X) + IntervalX / Math.Pow(2, _numberOfZoom);
+                    var posYStart = yAxis.PixelPositionToValue(e.Location.Y) - IntervalY / Math.Pow(2, _numberOfZoom);
+                    var posYFinish = yAxis.PixelPositionToValue(e.Location.Y) + IntervalY / Math.Pow(2, _numberOfZoom);
 
                     xAxis.ScaleView.Zoom(posXStart, posXFinish);
                     yAxis.ScaleView.Zoom(posYStart, posYFinish);
-                    numberOfZoom++;
+                    _numberOfZoom++;
                 }
 
-                if (numberOfZoom < 0) numberOfZoom = 0;
+                if (_numberOfZoom < 0) _numberOfZoom = 0;
             }
             catch { }
         }
@@ -544,6 +380,38 @@ namespace PolynomialCalculation
             limits.ShowDialog();
         }
 
-        
+        private void buttonGraphic_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                chart.Series["Func"].Points.Clear();
+
+                int y;
+
+                double coef0 = _coefficients[0].Text == "" ? 0 : Convert.ToDouble(_coefficients[0].Text);
+                double coef1 = _coefficients[1].Text == "" ? 0 : Convert.ToDouble(_coefficients[1].Text);
+                double coef2 = _coefficients[2].Text == "" ? 0 : Convert.ToDouble(_coefficients[2].Text);
+                double coef3 = _coefficients[3].Text == "" ? 0 : Convert.ToDouble(_coefficients[3].Text);
+
+                for (int x = xMin; x <= xMax; x++)
+                {
+                    y = (int)(coef3 * Math.Pow(x, 3) + coef2 * Math.Pow(x, 2) + coef1 * x + coef0);
+
+                    if (y <= yMax && y >= yMin)
+                    {
+                        chart.Series["Func"].Points.AddXY(x, y);
+                    }
+
+                }
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show(ex.Message, "Возникло исключение", MessageBoxButtons.OK);
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Возникло исключение", MessageBoxButtons.OK);
+            }
+        }
     }
 }

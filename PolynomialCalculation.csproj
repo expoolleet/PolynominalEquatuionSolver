@@ -48,6 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlgebraicEquations\Equation.cs" />
+    <Compile Include="AlgebraicEquations\LinearEquation.cs" />
+    <Compile Include="AlgebraicEquations\QubicEquation.cs" />
+    <Compile Include="AlgebraicEquations\Root.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

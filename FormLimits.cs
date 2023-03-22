@@ -21,7 +21,6 @@ namespace PolynomialCalculation
             TakeValues();
         }
 
-
         private void buttonOK_Click(object sender, EventArgs e)
         {
             mainForm.xMin = Convert.ToInt32(textBoxXmin.Text);
@@ -37,7 +36,7 @@ namespace PolynomialCalculation
             textBoxXmin.Text = mainForm.xMin.ToString();
             textBoxXmax.Text = mainForm.xMax.ToString();
             textBoxYmin.Text = mainForm.yMin.ToString();
-            textBoxYmax.Text = mainForm.yMin.ToString();
+            textBoxYmax.Text = mainForm.yMax.ToString();
         }
     }
 }
