@@ -30,9 +30,9 @@ namespace PolynomialCalculation
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.buttonFindRoots = new System.Windows.Forms.Button();
             this.labelRoot1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -84,6 +84,7 @@ namespace PolynomialCalculation
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.buttonLimits = new System.Windows.Forms.Button();
             this.buttonGraphic = new System.Windows.Forms.Button();
+            this.buttonSetInterval = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             this.groupBoxEquation.SuspendLayout();
@@ -377,21 +378,23 @@ namespace PolynomialCalculation
             // 
             // chart
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart.Legends.Add(legend1);
+            chartArea3.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chart.Legends.Add(legend3);
             this.chart.Location = new System.Drawing.Point(12, 212);
             this.chart.Margin = new System.Windows.Forms.Padding(4);
             this.chart.Name = "chart";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Legend = "Legend1";
-            series1.Name = "Func";
-            this.chart.Series.Add(series1);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series3.IsVisibleInLegend = false;
+            series3.Legend = "Legend1";
+            series3.Name = "Func";
+            this.chart.Series.Add(series3);
             this.chart.Size = new System.Drawing.Size(490, 411);
             this.chart.TabIndex = 15;
             this.chart.Text = "chart1";
+            this.chart.TextAntiAliasingQuality = System.Windows.Forms.DataVisualization.Charting.TextAntiAliasingQuality.SystemDefault;
             this.chart.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.chart_MouseWheel);
             // 
             // comboBoxDegree
@@ -429,15 +432,13 @@ namespace PolynomialCalculation
             // 
             // textBoxCoefficient0
             // 
-            this.textBoxCoefficient0.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxCoefficient0.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxCoefficient0.Location = new System.Drawing.Point(119, 4);
             this.textBoxCoefficient0.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.textBoxCoefficient0.Name = "textBoxCoefficient0";
-            this.textBoxCoefficient0.Size = new System.Drawing.Size(76, 26);
+            this.textBoxCoefficient0.Size = new System.Drawing.Size(77, 26);
             this.textBoxCoefficient0.TabIndex = 7;
+            this.textBoxCoefficient0.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textBoxCoefficient0.Visible = false;
             this.textBoxCoefficient0.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxCoefficient0_KeyPress);
             // 
@@ -445,7 +446,7 @@ namespace PolynomialCalculation
             // 
             this.labelEqualZero.AutoSize = true;
             this.labelEqualZero.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelEqualZero.Location = new System.Drawing.Point(761, 13);
+            this.labelEqualZero.Location = new System.Drawing.Point(752, 13);
             this.labelEqualZero.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelEqualZero.Name = "labelEqualZero";
             this.labelEqualZero.Padding = new System.Windows.Forms.Padding(0, 8, 0, 8);
@@ -462,6 +463,7 @@ namespace PolynomialCalculation
             this.textBoxCoefficient2.Name = "textBoxCoefficient2";
             this.textBoxCoefficient2.Size = new System.Drawing.Size(76, 26);
             this.textBoxCoefficient2.TabIndex = 5;
+            this.textBoxCoefficient2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textBoxCoefficient2.Visible = false;
             this.textBoxCoefficient2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxCoefficient2_KeyPress);
             // 
@@ -486,6 +488,7 @@ namespace PolynomialCalculation
             this.textBoxCoefficient3.Name = "textBoxCoefficient3";
             this.textBoxCoefficient3.Size = new System.Drawing.Size(76, 26);
             this.textBoxCoefficient3.TabIndex = 4;
+            this.textBoxCoefficient3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textBoxCoefficient3.Visible = false;
             this.textBoxCoefficient3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxCoefficient3_KeyPress);
             // 
@@ -523,6 +526,7 @@ namespace PolynomialCalculation
             this.textBoxCoefficient1.Name = "textBoxCoefficient1";
             this.textBoxCoefficient1.Size = new System.Drawing.Size(76, 26);
             this.textBoxCoefficient1.TabIndex = 6;
+            this.textBoxCoefficient1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textBoxCoefficient1.Visible = false;
             this.textBoxCoefficient1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxCoefficient1_KeyPress);
             // 
@@ -547,6 +551,7 @@ namespace PolynomialCalculation
             this.textBoxCoefficient4.Name = "textBoxCoefficient4";
             this.textBoxCoefficient4.Size = new System.Drawing.Size(76, 26);
             this.textBoxCoefficient4.TabIndex = 3;
+            this.textBoxCoefficient4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textBoxCoefficient4.Visible = false;
             this.textBoxCoefficient4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxCoefficient4_KeyPress);
             // 
@@ -558,6 +563,7 @@ namespace PolynomialCalculation
             this.textBoxCoefficient5.Name = "textBoxCoefficient5";
             this.textBoxCoefficient5.Size = new System.Drawing.Size(76, 26);
             this.textBoxCoefficient5.TabIndex = 2;
+            this.textBoxCoefficient5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textBoxCoefficient5.Visible = false;
             this.textBoxCoefficient5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxCoefficient5_KeyPress);
             // 
@@ -674,7 +680,7 @@ namespace PolynomialCalculation
             this.panel1.Location = new System.Drawing.Point(550, 16);
             this.panel1.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(207, 34);
+            this.panel1.Size = new System.Drawing.Size(198, 34);
             this.panel1.TabIndex = 25;
             // 
             // trackBarAccuracy
@@ -747,10 +753,22 @@ namespace PolynomialCalculation
             this.buttonGraphic.UseVisualStyleBackColor = true;
             this.buttonGraphic.Click += new System.EventHandler(this.buttonGraphic_Click);
             // 
+            // buttonSetInterval
+            // 
+            this.buttonSetInterval.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.buttonSetInterval.Location = new System.Drawing.Point(676, 245);
+            this.buttonSetInterval.Name = "buttonSetInterval";
+            this.buttonSetInterval.Size = new System.Drawing.Size(153, 58);
+            this.buttonSetInterval.TabIndex = 23;
+            this.buttonSetInterval.Text = "Задать интервал";
+            this.buttonSetInterval.UseVisualStyleBackColor = true;
+            this.buttonSetInterval.Click += new System.EventHandler(this.buttonSetInterval_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(841, 633);
+            this.Controls.Add(this.buttonSetInterval);
             this.Controls.Add(this.buttonFindRoots);
             this.Controls.Add(this.buttonGraphic);
             this.Controls.Add(this.buttonLimits);
@@ -843,6 +861,7 @@ namespace PolynomialCalculation
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel2;
         public System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
+        private System.Windows.Forms.Button buttonSetInterval;
     }
 }
 
