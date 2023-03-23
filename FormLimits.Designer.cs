@@ -52,6 +52,7 @@
             this.textBoxXmin.Size = new System.Drawing.Size(76, 24);
             this.textBoxXmin.TabIndex = 0;
             this.textBoxXmin.Text = "-10";
+            this.textBoxXmin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // buttonOK
             // 
@@ -112,6 +113,7 @@
             this.textBoxXmax.Size = new System.Drawing.Size(76, 24);
             this.textBoxXmax.TabIndex = 3;
             this.textBoxXmax.Text = "10";
+            this.textBoxXmax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // groupBox2
             // 
@@ -149,6 +151,7 @@
             this.textBoxYmax.Size = new System.Drawing.Size(76, 24);
             this.textBoxYmax.TabIndex = 3;
             this.textBoxYmax.Text = "30";
+            this.textBoxYmax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label4
             // 
@@ -170,6 +173,7 @@
             this.textBoxYmin.Size = new System.Drawing.Size(76, 24);
             this.textBoxYmin.TabIndex = 0;
             this.textBoxYmin.Text = "0";
+            this.textBoxYmin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // FormLimits
             // 

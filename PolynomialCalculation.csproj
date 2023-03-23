@@ -51,11 +51,17 @@
     <Compile Include="AlgebraicEquations\LinearEquation.cs" />
     <Compile Include="AlgebraicEquations\QubicEquation.cs" />
     <Compile Include="AlgebraicEquations\Root.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormIntervalRoots.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormIntervalRoots.Designer.cs">
+      <DependentUpon>FormIntervalRoots.cs</DependentUpon>
     </Compile>
     <Compile Include="FormLimits.cs">
       <SubType>Form</SubType>
@@ -66,8 +72,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AlgebraicEquations\QuadraticEquation.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormIntervalRoots.resx">
+      <DependentUpon>FormIntervalRoots.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormLimits.resx">
       <DependentUpon>FormLimits.cs</DependentUpon>

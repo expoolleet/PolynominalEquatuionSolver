@@ -27,7 +27,12 @@ namespace PolynomialCalculation
         private int _maxDegree = 5;
         private int _accuracy = 2;
         private int _numberOfZoom;
-
+        private double _coef0;
+        private double _coef1;
+        private double _coef2;
+        private double _coef3;
+        private double _coef4;
+        private double _coef5;
 
         public int AccuracyOfDecimalPlaces
         {
@@ -43,13 +48,17 @@ namespace PolynomialCalculation
 
         public int xMin { get; set; } = -10;
         public int xMax { get; set; } = 10;
-        public int yMin { get; set; }
-        public int yMax { get; set; } = 30;
+        public int yMin { get; set; } = -50;
+        public int yMax { get; set; } = 50;
+
+        //  public double LeftLimit { get; set; }
+        // public double RightLimit { get; set; }
+
+
+
         public MainForm()
         {
             InitializeComponent();
-
-           // _panelLeftPadding = flowLayoutPanel.Padding.Left;
 
             _coefficients.Add(textBoxCoefficient0);
             _coefficients.Add(textBoxCoefficient1);
@@ -122,14 +131,74 @@ namespace PolynomialCalculation
             ChangeAccuracyOfDecimalPlaces?.Invoke(_accuracy);
         }
 
+        private void SetCoefficients()
+        {
+            _coef0 = _coefficients[0].Text == "" ? 0 : Convert.ToDouble(_coefficients[0].Text);
+            _coef1 = _coefficients[1].Text == "" ? 0 : Convert.ToDouble(_coefficients[1].Text);
+            _coef2 = _coefficients[2].Text == "" ? 0 : Convert.ToDouble(_coefficients[2].Text);
+            _coef3 = _coefficients[3].Text == "" ? 0 : Convert.ToDouble(_coefficients[3].Text);
+            _coef4 = _coefficients[4].Text == "" ? 0 : Convert.ToDouble(_coefficients[4].Text);
+            _coef5 = _coefficients[5].Text == "" ? 0 : Convert.ToDouble(_coefficients[5].Text);
+        }
+
+        public void NumericalMethod(double accuracy, double leftLimit, double rightLimit)
+        {
+            double middle;
+            double y1;
+            double y2;
+
+            if (FindFunction(leftLimit) * FindFunction(rightLimit) > 0)
+            {
+                MessageBox.Show("Задан неподходящий диапазон чисел", "Ошибка", MessageBoxButtons.OK);
+                return;
+            }
+
+            //while (true)
+            //{
+            //     y1 = FindFunction(leftLimit);
+            //     y2 = FindFunction(rightLimit);
+
+            //    if (y1 * y2 < 0)
+            //    {
+            //        break;
+            //    }
+            //    else
+            //    {
+            //        middle = rightLimit / 2;
+
+            //        y1 = FindFunction(leftLimit);
+            //        y2 = FindFunction(middle);
+
+            //        if (y1 * y2 < 0)
+            //        {
+            //            rightLimit = middle;
+            //            break;
+            //        }
+            //        else
+            //        {
+            //            leftLimit = middle;
+            //        }
+            //    }
+            //}
+
+            for (double i = leftLimit; i < rightLimit; i += accuracy)
+            {
+                if (FindFunction(i) < accuracy)
+                {
+                    MessageBox.Show($"{FindFunction(i)}");
+                }
+            }
+
+          //   y1 = FindFunction(leftLimit);
+           //  y2 = FindFunction(rightLimit);
+
+          //  MessageBox.Show($"{y1}");
+          //  MessageBox.Show($"{y2}");
+        }
+
         private void buttonFindRoots_Click(object sender, EventArgs e)
         {
-            double coef0 = _coefficients[0].Text == "" ? 0 : Convert.ToDouble(_coefficients[0].Text);
-            double coef1 = _coefficients[1].Text == "" ? 0 : Convert.ToDouble(_coefficients[1].Text);
-            double coef2 = _coefficients[2].Text == "" ? 0 : Convert.ToDouble(_coefficients[2].Text);
-            double coef3 = _coefficients[3].Text == "" ? 0 : Convert.ToDouble(_coefficients[3].Text);
-            double coef4 = _coefficients[4].Text == "" ? 0 : Convert.ToDouble(_coefficients[4].Text);
-            double coef5 = _coefficients[5].Text == "" ? 0 : Convert.ToDouble(_coefficients[5].Text);
+            SetCoefficients();
 
             try
             {
@@ -139,11 +208,11 @@ namespace PolynomialCalculation
                         {
                             var linearEquation = new LinearEquation(this);
 
-                            var root = linearEquation.SolveEquation(coef1, coef0);
-;
-                           _roots[0].Text = root[0].GetRoot();
+                            var root = linearEquation.SolveEquation(_coef1, _coef0);
+                            ;
+                            _roots[0].Text = root[0].GetRoot();
 
-                           _func[0].Text = Math.Round(root[0].RealPart * coef1 + coef0, _accuracy).ToString();
+                            _func[0].Text = Math.Round(root[0].RealPart * _coef1 + _coef0, _accuracy).ToString();
                         }
 
                         break;
@@ -151,28 +220,28 @@ namespace PolynomialCalculation
                         {
                             var quadraticEquation = new QuadraticEquation(this);
 
-                            var roots = quadraticEquation.SolveEquation(coef2, coef1, coef0);
+                            var roots = quadraticEquation.SolveEquation(_coef2, _coef1, _coef0);
 
                             _roots[0].Text = roots[0].GetRoot();
                             _roots[1].Text = roots[1].GetRoot();
 
-                            _func[0].Text = Math.Round(coef2 * (Math.Pow(roots[0].RealPart, 2) + -Math.Pow(roots[0].ImgPart, 2)) + coef1 * roots[0].RealPart + coef0, _accuracy).ToString();
-                            _func[1].Text = Math.Round(coef2 * (Math.Pow(roots[1].RealPart, 2) + -Math.Pow(roots[1].ImgPart, 2)) + coef1 * roots[1].RealPart + coef0, _accuracy).ToString();
+                            _func[0].Text = Math.Round(_coef2 * (Math.Pow(roots[0].RealPart, 2) + -Math.Pow(roots[0].ImgPart, 2)) + _coef1 * roots[0].RealPart + _coef0, _accuracy).ToString();
+                            _func[1].Text = Math.Round(_coef2 * (Math.Pow(roots[1].RealPart, 2) + -Math.Pow(roots[1].ImgPart, 2)) + _coef1 * roots[1].RealPart + _coef0, _accuracy).ToString();
                         }
                         break;
                     case 3:
                         {
                             var qubicEquation = new QubicEquation(this);
 
-                            var roots = qubicEquation.SolveEquation(coef3, coef2, coef1, coef0);
+                            var roots = qubicEquation.SolveEquation(_coef3, _coef2, _coef1, _coef0);
 
                             _roots[0].Text = roots[0].GetRoot();
                             _roots[1].Text = roots[1].GetRoot();
                             _roots[2].Text = roots[2].GetRoot();
 
-                            _func[0].Text = (Math.Round(coef3 * Math.Pow(roots[0].RealPart, 3) + coef2 * Math.Pow(roots[0].RealPart, 2) + coef1 * roots[0].RealPart + coef0, _accuracy)).ToString();
-                            _func[1].Text = (Math.Round(coef3 * (Math.Pow(roots[1].RealPart, 3) + (3 * roots[1].RealPart * -Math.Pow(roots[1].ImgPart, 2))) + coef2 * (Math.Pow(roots[1].RealPart, 2) + -Math.Pow(roots[1].ImgPart, 2)) + coef1 * roots[1].RealPart + coef0, _accuracy)).ToString();
-                            _func[2].Text = (Math.Round(coef3 * (Math.Pow(roots[2].RealPart, 3) + (3 * roots[2].RealPart * -Math.Pow(roots[2].ImgPart, 2))) + coef2 * (Math.Pow(roots[2].RealPart, 2) + -Math.Pow(roots[2].ImgPart, 2)) + coef1 * roots[2].RealPart + coef0, _accuracy)).ToString();
+                            _func[0].Text = (Math.Round(_coef3 * Math.Pow(roots[0].RealPart, 3) + _coef2 * Math.Pow(roots[0].RealPart, 2) + _coef1 * roots[0].RealPart + _coef0, _accuracy)).ToString();
+                            _func[1].Text = (Math.Round(_coef3 * (Math.Pow(roots[1].RealPart, 3) + (3 * roots[1].RealPart * -Math.Pow(roots[1].ImgPart, 2))) + _coef2 * (Math.Pow(roots[1].RealPart, 2) + -Math.Pow(roots[1].ImgPart, 2)) + _coef1 * roots[1].RealPart + _coef0, _accuracy)).ToString();
+                            _func[2].Text = (Math.Round(_coef3 * (Math.Pow(roots[2].RealPart, 3) + (3 * roots[2].RealPart * -Math.Pow(roots[2].ImgPart, 2))) + _coef2 * (Math.Pow(roots[2].RealPart, 2) + -Math.Pow(roots[2].ImgPart, 2)) + _coef1 * roots[2].RealPart + _coef0, _accuracy)).ToString();
                         }
                         break;
                     case 4:
@@ -375,9 +444,13 @@ namespace PolynomialCalculation
 
         private void buttonLimits_Click(object sender, EventArgs e)
         {
-            FormLimits limits = new FormLimits(this);
+            FormLimits form = new FormLimits(this);
+            form.ShowDialog();
+        }
 
-            limits.ShowDialog();
+        private double FindFunction(double x)
+        {
+            return _coef5 * Math.Pow(x, 5) + _coef4 * Math.Pow(x, 4) + _coef3 * Math.Pow(x, 3) + _coef2 * Math.Pow(x, 2) + _coef1 * x + _coef0;
         }
 
         private void buttonGraphic_Click(object sender, EventArgs e)
@@ -388,14 +461,11 @@ namespace PolynomialCalculation
 
                 int y;
 
-                double coef0 = _coefficients[0].Text == "" ? 0 : Convert.ToDouble(_coefficients[0].Text);
-                double coef1 = _coefficients[1].Text == "" ? 0 : Convert.ToDouble(_coefficients[1].Text);
-                double coef2 = _coefficients[2].Text == "" ? 0 : Convert.ToDouble(_coefficients[2].Text);
-                double coef3 = _coefficients[3].Text == "" ? 0 : Convert.ToDouble(_coefficients[3].Text);
+                SetCoefficients();
 
                 for (int x = xMin; x <= xMax; x++)
                 {
-                    y = (int)(coef3 * Math.Pow(x, 3) + coef2 * Math.Pow(x, 2) + coef1 * x + coef0);
+                    y = (int)FindFunction(x);
 
                     if (y <= yMax && y >= yMin)
                     {
@@ -412,6 +482,11 @@ namespace PolynomialCalculation
             {
                 MessageBox.Show(ex.Message, "Возникло исключение", MessageBoxButtons.OK);
             }
+        }
+
+        private void buttonSetInterval_Click(object sender, EventArgs e)
+        {
+            new FormIntervalRoots(this).ShowDialog();
         }
     }
 }

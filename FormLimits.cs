@@ -12,31 +12,31 @@ namespace PolynomialCalculation
 {
     public partial class FormLimits : Form
     {
-        MainForm mainForm;
+        private MainForm _mainForm;
 
-        public FormLimits(Form form)
+        public FormLimits(MainForm form)
         {
             InitializeComponent();
-            mainForm = (MainForm)form;
+            _mainForm = form;
             TakeValues();
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            mainForm.xMin = Convert.ToInt32(textBoxXmin.Text);
-            mainForm.xMax = Convert.ToInt32(textBoxXmax.Text);
-            mainForm.yMin = Convert.ToInt32(textBoxYmin.Text);
-            mainForm.yMax = Convert.ToInt32(textBoxYmax.Text);
+            _mainForm.xMin = Convert.ToInt32(textBoxXmin.Text);
+            _mainForm.xMax = Convert.ToInt32(textBoxXmax.Text);
+            _mainForm.yMin = Convert.ToInt32(textBoxYmin.Text);
+            _mainForm.yMax = Convert.ToInt32(textBoxYmax.Text);
 
             Close();
         }
 
         private void TakeValues()
         {
-            textBoxXmin.Text = mainForm.xMin.ToString();
-            textBoxXmax.Text = mainForm.xMax.ToString();
-            textBoxYmin.Text = mainForm.yMin.ToString();
-            textBoxYmax.Text = mainForm.yMax.ToString();
+            textBoxXmin.Text = _mainForm.xMin.ToString();
+            textBoxXmax.Text = _mainForm.xMax.ToString();
+            textBoxYmin.Text = _mainForm.yMin.ToString();
+            textBoxYmax.Text = _mainForm.yMax.ToString();
         }
     }
 }
