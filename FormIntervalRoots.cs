@@ -1,19 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PolynomialCalculation
 {
     public partial class FormIntervalRoots : Form
     {
-        private MainForm _mainForm;
-        private double _accuracy;
+        private readonly MainForm _mainForm;
+        private double _accuracy = 0.01;
+
         public FormIntervalRoots(MainForm mainForm)
         {
             InitializeComponent();
@@ -30,9 +24,10 @@ namespace PolynomialCalculation
 
         private void trackBarAccuracy_Scroll(object sender, EventArgs e)
         {
-            _accuracy = trackBarAccuracy.Value / Math.Pow(10, _accuracy);
-          //  string symbol = $"\u00B{_accuracy}";
-            textBoxAccuracy.Text = "1 x 10\u207B\u00B3";
+            _accuracy = 1 / Math.Pow(10, trackBarAccuracy.Value);
+            //  string symbol = $"\u00B{_accuracy}";
+            //  textBoxAccuracy.Text = "1 x 10\u207B\u00B3";
+            textBoxAccuracy.Text = _accuracy.ToString();
         }
     }
 }

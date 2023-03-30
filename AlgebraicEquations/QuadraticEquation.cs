@@ -40,8 +40,8 @@ namespace AlgebraicEquations
                 var root1 = (-_coefficient1 + sqrtDis) / (2 * _coefficient2);
                 var root2 = (-_coefficient1 - sqrtDis) / (2 * _coefficient2);
 
-               var fullroot1 = Math.Round(root1, _accuracy).ToString();
-               var fullroot2 = Math.Round(root2, _accuracy).ToString();
+                var fullroot1 = Math.Round(root1, _accuracy).ToString();
+                var fullroot2 = Math.Round(root2, _accuracy).ToString();
 
                 _roots[0] = new Root(fullroot1, root1, 0);
                 _roots[1] = new Root(fullroot2, root2, 0);
@@ -67,4 +67,3 @@ namespace AlgebraicEquations
         }
     }
 }
-
