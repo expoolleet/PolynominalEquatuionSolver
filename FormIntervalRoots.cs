@@ -17,8 +17,6 @@ namespace PolynomialCalculation
 
         private void buttonFind_Click(object sender, EventArgs e)
         {
-            //_mainForm.LeftLimit = Convert.ToDouble(textBoxLeft.Text);
-           // _mainForm.RightLimit = Convert.ToDouble(textBoxRight.Text);
             _mainForm.NumericalMethod(_accuracy, Convert.ToDouble(textBoxLeft.Text), Convert.ToDouble(textBoxRight.Text));
         }
 
@@ -28,6 +26,11 @@ namespace PolynomialCalculation
             //  string symbol = $"\u00B{_accuracy}";
             //  textBoxAccuracy.Text = "1 x 10\u207B\u00B3";
             textBoxAccuracy.Text = _accuracy.ToString();
+        }
+
+        private void textBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            _mainForm.OnKeyPressed(sender, e);
         }
     }
 }

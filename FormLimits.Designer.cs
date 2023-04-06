@@ -51,18 +51,19 @@
             this.textBoxXmin.Name = "textBoxXmin";
             this.textBoxXmin.Size = new System.Drawing.Size(76, 24);
             this.textBoxXmin.TabIndex = 0;
-            this.textBoxXmin.Text = "-10";
+            this.textBoxXmin.Text = "-50";
             this.textBoxXmin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxXmin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
             // 
             // buttonOK
             // 
             this.buttonOK.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonOK.Location = new System.Drawing.Point(109, 101);
+            this.buttonOK.Location = new System.Drawing.Point(109, 111);
             this.buttonOK.Margin = new System.Windows.Forms.Padding(2);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(106, 51);
             this.buttonOK.TabIndex = 1;
-            this.buttonOK.Text = "OK";
+            this.buttonOK.Text = "Задать";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
@@ -112,8 +113,9 @@
             this.textBoxXmax.Name = "textBoxXmax";
             this.textBoxXmax.Size = new System.Drawing.Size(76, 24);
             this.textBoxXmax.TabIndex = 3;
-            this.textBoxXmax.Text = "10";
+            this.textBoxXmax.Text = "50";
             this.textBoxXmax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxXmax.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
             // 
             // groupBox2
             // 
@@ -150,8 +152,9 @@
             this.textBoxYmax.Name = "textBoxYmax";
             this.textBoxYmax.Size = new System.Drawing.Size(76, 24);
             this.textBoxYmax.TabIndex = 3;
-            this.textBoxYmax.Text = "30";
+            this.textBoxYmax.Text = "100";
             this.textBoxYmax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxYmax.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
             // 
             // label4
             // 
@@ -172,14 +175,15 @@
             this.textBoxYmin.Name = "textBoxYmin";
             this.textBoxYmin.Size = new System.Drawing.Size(76, 24);
             this.textBoxYmin.TabIndex = 0;
-            this.textBoxYmin.Text = "0";
+            this.textBoxYmin.Text = "-100";
             this.textBoxYmin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxYmin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
             // 
             // FormLimits
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(324, 161);
+            this.ClientSize = new System.Drawing.Size(324, 173);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buttonOK);
@@ -187,7 +191,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormLimits";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Пределы";
+            this.Text = "Пределы графика";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

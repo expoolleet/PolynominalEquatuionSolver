@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using AlgebraicEquations;
 using System.IO;
+using System.Reflection;
 
 namespace PolynomialCalculation
 {
@@ -36,7 +37,6 @@ namespace PolynomialCalculation
         private double _coef4;
         private double _coef5;
 
-
         public int AccuracyOfDecimalPlaces
         {
             get
@@ -49,15 +49,10 @@ namespace PolynomialCalculation
             }
         }
 
-        public int xMin { get; set; } = -10;
-        public int xMax { get; set; } = 10;
-        public int yMin { get; set; } = -50;
-        public int yMax { get; set; } = 50;
-
-        //  public double LeftLimit { get; set; }
-        // public double RightLimit { get; set; }
-
-
+        public int xMin { get; set; } = -50;
+        public int xMax { get; set; } = 50;
+        public int yMin { get; set; } = -100;
+        public int yMax { get; set; } = 100;
 
         public MainForm()
         {
@@ -173,9 +168,13 @@ namespace PolynomialCalculation
                 }
             }
 
-            foreach (var root in _rootsByNumeral)
+            for (int i = 0; i < _rootsByNumeral.Count; i++)
             {
-                MessageBox.Show($"{root.GetRoot()}");
+                _roots[i].Text = "";
+                _func[i].Text = "";
+
+                _roots[i].Text = _rootsByNumeral[i].GetRoot();
+                _func[i].Text = FindFunction(_rootsByNumeral[i].RealPart).ToString();
             }
         }
 
@@ -186,6 +185,18 @@ namespace PolynomialCalculation
 
         private void SetCoefficients()
         {
+            //var coef = _coef0.GetType();
+            //coef.
+
+            //for (int i = 0; i < _coefficients.Count; i++)
+            //{
+
+
+            //    string coef = $"_coef{i}";
+            //    Assembly info = typeof(double).Assembly;
+            //    (info)coef = _coefficients[i].Text == "" ? 0 : Convert.ToDouble(_coefficients[i].Text);
+            //}
+
             _coef0 = _coefficients[0].Text == "" ? 0 : Convert.ToDouble(_coefficients[0].Text);
             _coef1 = _coefficients[1].Text == "" ? 0 : Convert.ToDouble(_coefficients[1].Text);
             _coef2 = _coefficients[2].Text == "" ? 0 : Convert.ToDouble(_coefficients[2].Text);
@@ -196,6 +207,17 @@ namespace PolynomialCalculation
 
         private void EquationVisibility()
         {
+            if (_degree > 3)
+            {
+                buttonFindRoots.Visible = false;
+                buttonSetInterval.Visible = true;
+            }
+            else
+            {
+                buttonFindRoots.Visible = true;
+                buttonSetInterval.Visible = false;
+            }
+
             for (int i = 0; i <= _maxDegree; i++)
             {
                 _coefficients[i].Visible = false;
@@ -232,19 +254,14 @@ namespace PolynomialCalculation
             }
         }
 
-        //region
-        #region onkeypressed
-
-        private void OnKeyPressed(object sender, KeyPressEventArgs e)
+        public void OnKeyPressed(object sender, KeyPressEventArgs e)
         {
             char number = e.KeyChar;
 
             var textBox = sender as TextBox;
 
             if (number == 45 && textBox.SelectionStart == 0)
-            {
-
-            }
+            { }
             else if (!char.IsDigit(number) && number != 8)
             {
                 if (!textBox.Text.Contains(','))
@@ -286,38 +303,6 @@ namespace PolynomialCalculation
             }
         }
 
-        private void textBoxCoefficient5_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            OnKeyPressed(sender, e);
-        }
-
-        private void textBoxCoefficient4_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            OnKeyPressed(sender, e);
-        }
-
-        private void textBoxCoefficient3_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            OnKeyPressed(sender, e);
-        }
-
-        private void textBoxCoefficient2_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            OnKeyPressed(sender, e);
-        }
-
-        private void textBoxCoefficient1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            OnKeyPressed(sender, e);
-        }
-
-        private void textBoxCoefficient0_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            OnKeyPressed(sender, e);
-        }
-
-        #endregion
-
         private void chart_MouseWheel(object sender, MouseEventArgs e)
         {
             var chart = (Chart)sender;
@@ -355,7 +340,6 @@ namespace PolynomialCalculation
                 }
                 else if (e.Delta > 0) // Scrolled up.
                 {
-
                     var posXStart = xAxis.PixelPositionToValue(e.Location.X) - IntervalX / Math.Pow(2, _numberOfZoom);
                     var posXFinish = xAxis.PixelPositionToValue(e.Location.X) + IntervalX / Math.Pow(2, _numberOfZoom);
                     var posYStart = yAxis.PixelPositionToValue(e.Location.Y) - IntervalY / Math.Pow(2, _numberOfZoom);
@@ -384,7 +368,7 @@ namespace PolynomialCalculation
                             var linearEquation = new LinearEquation(this);
 
                             var root = linearEquation.SolveEquation(_coef1, _coef0);
-                            ;
+                           
                             _roots[0].Text = root[0].GetRoot();
 
                             _func[0].Text = Math.Round(root[0].RealPart * _coef1 + _coef0, _accuracy).ToString();
@@ -421,7 +405,6 @@ namespace PolynomialCalculation
                         break;
                     case 4:
                         {
-
                         }
                         break;
                     case 5:

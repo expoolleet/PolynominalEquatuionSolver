@@ -38,5 +38,10 @@ namespace PolynomialCalculation
             textBoxYmin.Text = _mainForm.yMin.ToString();
             textBoxYmax.Text = _mainForm.yMax.ToString();
         }
+
+        private void textBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            _mainForm.OnKeyPressed(sender, e);
+        }
     }
 }
