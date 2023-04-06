@@ -17,6 +17,7 @@ namespace PolynomialCalculation
     {
         public event AccuracyOfDecimalPlaces ChangeAccuracyOfDecimalPlaces;
 
+        private List<Root> _rootsByNumeral = new List<Root>();
         private List<TextBox> _coefficients = new List<TextBox>();
         private List<Label> _variables = new List<Label>();
         private List<TextBox> _roots = new List<TextBox>();
@@ -34,6 +35,7 @@ namespace PolynomialCalculation
         private double _coef3;
         private double _coef4;
         private double _coef5;
+
 
         public int AccuracyOfDecimalPlaces
         {
@@ -132,6 +134,56 @@ namespace PolynomialCalculation
             ChangeAccuracyOfDecimalPlaces?.Invoke(_accuracy);
         }
 
+        public void NumericalMethod(double accuracy, double leftLimit, double rightLimit)
+        {
+            _rootsByNumeral.Clear();
+            SetCoefficients();
+
+            double middle;
+            double y1;
+            double y2;
+
+            for (double step = leftLimit; step < rightLimit; step += 0.1)
+            {
+                if (FindFunction(leftLimit) * FindFunction(step) < 0)
+                {
+                    while (FindFunction(leftLimit) < accuracy && FindFunction(step) > accuracy)
+                    {
+
+                        middle = (step + leftLimit) / 2;
+
+                        y1 = FindFunction(leftLimit);
+                        y2 = FindFunction(middle);
+
+                        if (y1 * y2 < 0)
+                        {
+                            step = middle;
+                        }
+                        else
+                        {
+                            leftLimit = middle;
+                        }
+                    }
+
+                    var root = Math.Round(step, _accuracy);
+
+                    _rootsByNumeral.Add(new Root($"{root}", root, 0));
+
+                    leftLimit = step;
+                }
+            }
+
+            foreach (var root in _rootsByNumeral)
+            {
+                MessageBox.Show($"{root.GetRoot()}");
+            }
+        }
+
+        private double FindFunction(double x)
+        {
+            return _coef5 * Math.Pow(x, 5) + _coef4 * Math.Pow(x, 4) + _coef3 * Math.Pow(x, 3) + _coef2 * Math.Pow(x, 2) + _coef1 * x + _coef0;
+        }
+
         private void SetCoefficients()
         {
             _coef0 = _coefficients[0].Text == "" ? 0 : Convert.ToDouble(_coefficients[0].Text);
@@ -140,140 +192,6 @@ namespace PolynomialCalculation
             _coef3 = _coefficients[3].Text == "" ? 0 : Convert.ToDouble(_coefficients[3].Text);
             _coef4 = _coefficients[4].Text == "" ? 0 : Convert.ToDouble(_coefficients[4].Text);
             _coef5 = _coefficients[5].Text == "" ? 0 : Convert.ToDouble(_coefficients[5].Text);
-        }
-
-        public void NumericalMethod(double accuracy, double leftLimit, double rightLimit)
-        {
-            double middle;
-            double y1;
-            double y2;
-
-            if (FindFunction(leftLimit) * FindFunction(rightLimit) > 0)
-            {
-                MessageBox.Show("Задан неподходящий диапазон чисел", "Ошибка", MessageBoxButtons.OK);
-                return;
-            }
-
-            //while (true)
-            //{
-            //     y1 = FindFunction(leftLimit);
-            //     y2 = FindFunction(rightLimit);
-
-            //    if (y1 * y2 < 0)
-            //    {
-            //        break;
-            //    }
-            //    else
-            //    {
-            //        middle = rightLimit / 2;
-
-            //        y1 = FindFunction(leftLimit);
-            //        y2 = FindFunction(middle);
-
-            //        if (y1 * y2 < 0)
-            //        {
-            //            rightLimit = middle;
-            //            break;
-            //        }
-            //        else
-            //        {
-            //            leftLimit = middle;
-            //        }
-            //    }
-            //}
-            using (StreamWriter sw = new StreamWriter("text_file.txt", false))
-            {
-             //   MessageBox.Show($"{leftLimit}");
-             //   MessageBox.Show($"{rightLimit}");
-                MessageBox.Show($"{accuracy}");
-  
-
-                for (double i = leftLimit; i < rightLimit; i += accuracy)
-                {
-                       sw.WriteLine($"{i} - {FindFunction(i)}");
-                    //if (FindFunction(i) - FindFunction(i - 1) < accuracy)
-                    //{
-                    //   MessageBox.Show($"{i} ; {FindFunction(i)}");
-                    //    break;
-                    //}
-                }
-                MessageBox.Show("Done");
-            }
-        //   y1 = FindFunction(leftLimit);
-        //  y2 = FindFunction(rightLimit);
-
-        //  MessageBox.Show($"{y1}");
-        //  MessageBox.Show($"{y2}");
-    }
-
-        private void buttonFindRoots_Click(object sender, EventArgs e)
-        {
-            SetCoefficients();
-
-            try
-            {
-                switch (_degree)
-                {
-                    case 1:
-                        {
-                            var linearEquation = new LinearEquation(this);
-
-                            var root = linearEquation.SolveEquation(_coef1, _coef0);
-                            
-                            _roots[0].Text = root[0].GetRoot();
-
-                            _func[0].Text = Math.Round(root[0].RealPart * _coef1 + _coef0, _accuracy).ToString();
-                        }
-
-                        break;
-                    case 2:
-                        {
-                            var quadraticEquation = new QuadraticEquation(this);
-
-                            var roots = quadraticEquation.SolveEquation(_coef2, _coef1, _coef0);
-
-                            _roots[0].Text = roots[0].GetRoot();
-                            _roots[1].Text = roots[1].GetRoot();
-
-                            _func[0].Text = Math.Round(_coef2 * (Math.Pow(roots[0].RealPart, 2) + -Math.Pow(roots[0].ImgPart, 2)) + _coef1 * roots[0].RealPart + _coef0, _accuracy).ToString();
-                            _func[1].Text = Math.Round(_coef2 * (Math.Pow(roots[1].RealPart, 2) + -Math.Pow(roots[1].ImgPart, 2)) + _coef1 * roots[1].RealPart + _coef0, _accuracy).ToString();
-                        }
-                        break;
-                    case 3:
-                        {
-                            var qubicEquation = new QubicEquation(this);
-
-                            var roots = qubicEquation.SolveEquation(_coef3, _coef2, _coef1, _coef0);
-
-                            _roots[0].Text = roots[0].GetRoot();
-                            _roots[1].Text = roots[1].GetRoot();
-                            _roots[2].Text = roots[2].GetRoot();
-
-                            _func[0].Text = (Math.Round(_coef3 * Math.Pow(roots[0].RealPart, 3) + _coef2 * Math.Pow(roots[0].RealPart, 2) + _coef1 * roots[0].RealPart + _coef0, _accuracy)).ToString();
-                            _func[1].Text = (Math.Round(_coef3 * (Math.Pow(roots[1].RealPart, 3) + (3 * roots[1].RealPart * -Math.Pow(roots[1].ImgPart, 2))) + _coef2 * (Math.Pow(roots[1].RealPart, 2) + -Math.Pow(roots[1].ImgPart, 2)) + _coef1 * roots[1].RealPart + _coef0, _accuracy)).ToString();
-                            _func[2].Text = (Math.Round(_coef3 * (Math.Pow(roots[2].RealPart, 3) + (3 * roots[2].RealPart * -Math.Pow(roots[2].ImgPart, 2))) + _coef2 * (Math.Pow(roots[2].RealPart, 2) + -Math.Pow(roots[2].ImgPart, 2)) + _coef1 * roots[2].RealPart + _coef0, _accuracy)).ToString();
-                        }
-                        break;
-                    case 4:
-                        {
-
-                        }
-                        break;
-                    case 5:
-                        {
-                        }
-                        break;
-                }
-            }
-            catch (FormatException ex)
-            {
-                MessageBox.Show(ex.Message, "Возникло исключение", MessageBoxButtons.OK);
-            }
-            catch (ArgumentException ex)
-            {
-                MessageBox.Show(ex.Message, "Возникло исключение", MessageBoxButtons.OK);
-            }
-
         }
 
         private void EquationVisibility()
@@ -314,6 +232,7 @@ namespace PolynomialCalculation
             }
         }
 
+        //region
         #region onkeypressed
 
         private void OnKeyPressed(object sender, KeyPressEventArgs e)
@@ -452,15 +371,80 @@ namespace PolynomialCalculation
             catch { }
         }
 
+        private void buttonFindRoots_Click(object sender, EventArgs e)
+        {
+            SetCoefficients();
+
+            try
+            {
+                switch (_degree)
+                {
+                    case 1:
+                        {
+                            var linearEquation = new LinearEquation(this);
+
+                            var root = linearEquation.SolveEquation(_coef1, _coef0);
+                            ;
+                            _roots[0].Text = root[0].GetRoot();
+
+                            _func[0].Text = Math.Round(root[0].RealPart * _coef1 + _coef0, _accuracy).ToString();
+                        }
+
+                        break;
+                    case 2:
+                        {
+                            var quadraticEquation = new QuadraticEquation(this);
+
+                            var roots = quadraticEquation.SolveEquation(_coef2, _coef1, _coef0);
+
+                            _roots[0].Text = roots[0].GetRoot();
+                            _roots[1].Text = roots[1].GetRoot();
+
+                            _func[0].Text = Math.Round(_coef2 * (Math.Pow(roots[0].RealPart, 2) + -Math.Pow(roots[0].ImgPart, 2)) + _coef1 * roots[0].RealPart + _coef0, _accuracy).ToString();
+                            _func[1].Text = Math.Round(_coef2 * (Math.Pow(roots[1].RealPart, 2) + -Math.Pow(roots[1].ImgPart, 2)) + _coef1 * roots[1].RealPart + _coef0, _accuracy).ToString();
+                        }
+                        break;
+                    case 3:
+                        {
+                            var qubicEquation = new QubicEquation(this);
+
+                            var roots = qubicEquation.SolveEquation(_coef3, _coef2, _coef1, _coef0);
+
+                            _roots[0].Text = roots[0].GetRoot();
+                            _roots[1].Text = roots[1].GetRoot();
+                            _roots[2].Text = roots[2].GetRoot();
+
+                            _func[0].Text = (Math.Round(_coef3 * Math.Pow(roots[0].RealPart, 3) + _coef2 * Math.Pow(roots[0].RealPart, 2) + _coef1 * roots[0].RealPart + _coef0, _accuracy)).ToString();
+                            _func[1].Text = (Math.Round(_coef3 * (Math.Pow(roots[1].RealPart, 3) + (3 * roots[1].RealPart * -Math.Pow(roots[1].ImgPart, 2))) + _coef2 * (Math.Pow(roots[1].RealPart, 2) + -Math.Pow(roots[1].ImgPart, 2)) + _coef1 * roots[1].RealPart + _coef0, _accuracy)).ToString();
+                            _func[2].Text = (Math.Round(_coef3 * (Math.Pow(roots[2].RealPart, 3) + (3 * roots[2].RealPart * -Math.Pow(roots[2].ImgPart, 2))) + _coef2 * (Math.Pow(roots[2].RealPart, 2) + -Math.Pow(roots[2].ImgPart, 2)) + _coef1 * roots[2].RealPart + _coef0, _accuracy)).ToString();
+                        }
+                        break;
+                    case 4:
+                        {
+
+                        }
+                        break;
+                    case 5:
+                        {
+                        }
+                        break;
+                }
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show(ex.Message, "Возникло исключение", MessageBoxButtons.OK);
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Возникло исключение", MessageBoxButtons.OK);
+            }
+
+        }
+
         private void buttonLimits_Click(object sender, EventArgs e)
         {
             FormLimits form = new FormLimits(this);
             form.ShowDialog();
-        }
-
-        private double FindFunction(double x)
-        {
-            return _coef5 * Math.Pow(x, 5) + _coef4 * Math.Pow(x, 4) + _coef3 * Math.Pow(x, 3) + _coef2 * Math.Pow(x, 2) + _coef1 * x + _coef0;
         }
 
         private void buttonGraphic_Click(object sender, EventArgs e)
@@ -481,7 +465,6 @@ namespace PolynomialCalculation
                     {
                         chart.Series["Func"].Points.AddXY(x, y);
                     }
-
                 }
             }
             catch (FormatException ex)

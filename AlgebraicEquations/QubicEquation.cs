@@ -1,7 +1,5 @@
-﻿using AlgebraicEquations;
-using PolynomialCalculation;
+﻿using PolynomialCalculation;
 using System;
-
 
 namespace AlgebraicEquations
 {
@@ -13,7 +11,7 @@ namespace AlgebraicEquations
         private double _b2;
         private double _b3;
         private int _accuracy;
-        
+
         public QubicEquation(MainForm mainForm)
         {
             _accuracy = mainForm.AccuracyOfDecimalPlaces;
@@ -28,6 +26,7 @@ namespace AlgebraicEquations
             _coefficient0 = coefficient0;
 
             SolveEquation();
+
             return _roots;
         }
 
@@ -65,7 +64,7 @@ namespace AlgebraicEquations
             {
                 var alpha = double.IsNaN(Math.Pow(-(_q / 2) + Math.Sqrt(_discriminant), 1.0 / 3)) ? -Math.Pow(Math.Abs(-(_q / 2) + Math.Sqrt(_discriminant)), 1.0 / 3) : Math.Pow(-(_q / 2) + Math.Sqrt(_discriminant), 1.0 / 3);
                 var beta = double.IsNaN(Math.Pow(-(_q / 2) - Math.Sqrt(_discriminant), 1.0 / 3)) ? -Math.Pow(Math.Abs(-(_q / 2) - Math.Sqrt(_discriminant)), 1.0 / 3) : Math.Pow(-(_q / 2) - Math.Sqrt(_discriminant), 1.0 / 3);
-                
+
                 var y1 = alpha + beta;
 
                 var y2_real = -(alpha + beta) / 2;

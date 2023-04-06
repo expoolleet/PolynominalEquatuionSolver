@@ -10,6 +10,7 @@ namespace AlgebraicEquations
         public LinearEquation(MainForm mainForm)
         {
             _accuracy = mainForm.AccuracyOfDecimalPlaces;
+
             mainForm.ChangeAccuracyOfDecimalPlaces += ChangeAccuracy;
         }
 
@@ -17,7 +18,7 @@ namespace AlgebraicEquations
         {
             _coefficient1 = coefficient1;
             _coefficient0 = coefficient0;
-            
+
             SolveEquation();
 
             return _roots;
@@ -28,7 +29,7 @@ namespace AlgebraicEquations
             _roots = new Root[1];
 
             var root = -_coefficient0 / _coefficient1;
-            
+
             var fullroot = Math.Round(root, _accuracy).ToString();
 
             _roots[0] = new Root(fullroot, root, 0);
