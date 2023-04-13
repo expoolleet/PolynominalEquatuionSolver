@@ -23,10 +23,10 @@ namespace PolynomialCalculation
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            _mainForm.xMin = Convert.ToInt32(textBoxXmin.Text);
-            _mainForm.xMax = Convert.ToInt32(textBoxXmax.Text);
-            _mainForm.yMin = Convert.ToInt32(textBoxYmin.Text);
-            _mainForm.yMax = Convert.ToInt32(textBoxYmax.Text);
+            _mainForm.xMin = Convert.ToDouble(textBoxXmin.Text);
+            _mainForm.xMax = Convert.ToDouble(textBoxXmax.Text);
+            _mainForm.yMin = Convert.ToDouble(textBoxYmin.Text);
+            _mainForm.yMax = Convert.ToDouble(textBoxYmax.Text);
 
             Close();
         }

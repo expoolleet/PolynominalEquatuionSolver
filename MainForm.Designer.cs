@@ -30,9 +30,9 @@ namespace PolynomialCalculation
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.buttonFindRoots = new System.Windows.Forms.Button();
             this.labelRoot1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -85,6 +85,7 @@ namespace PolynomialCalculation
             this.buttonLimits = new System.Windows.Forms.Button();
             this.buttonGraphic = new System.Windows.Forms.Button();
             this.buttonSetInterval = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             this.groupBoxEquation.SuspendLayout();
@@ -378,23 +379,24 @@ namespace PolynomialCalculation
             // 
             // chart
             // 
-            chartArea6.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea6);
-            legend6.Name = "Legend1";
-            this.chart.Legends.Add(legend6);
+            chartArea2.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart.Legends.Add(legend2);
             this.chart.Location = new System.Drawing.Point(12, 212);
             this.chart.Margin = new System.Windows.Forms.Padding(4);
             this.chart.Name = "chart";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series6.IsVisibleInLegend = false;
-            series6.Legend = "Legend1";
-            series6.Name = "Func";
-            this.chart.Series.Add(series6);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series2.IsVisibleInLegend = false;
+            series2.Legend = "Legend1";
+            series2.Name = "Func";
+            this.chart.Series.Add(series2);
             this.chart.Size = new System.Drawing.Size(490, 411);
             this.chart.TabIndex = 8;
             this.chart.Text = "chart1";
             this.chart.TextAntiAliasingQuality = System.Windows.Forms.DataVisualization.Charting.TextAntiAliasingQuality.SystemDefault;
+            this.chart.MouseEnter += new System.EventHandler(this.chart_MouseEnter);
             this.chart.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.chart_MouseWheel);
             // 
             // comboBoxDegree
@@ -765,10 +767,22 @@ namespace PolynomialCalculation
             this.buttonSetInterval.Visible = false;
             this.buttonSetInterval.Click += new System.EventHandler(this.buttonSetInterval_Click);
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.Location = new System.Drawing.Point(350, 598);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(152, 25);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "Сброс масштаба графика";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(841, 633);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonSetInterval);
             this.Controls.Add(this.buttonFindRoots);
             this.Controls.Add(this.buttonGraphic);
@@ -863,6 +877,7 @@ namespace PolynomialCalculation
         private System.Windows.Forms.Panel panel2;
         public System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
         private System.Windows.Forms.Button buttonSetInterval;
+        private System.Windows.Forms.Button button1;
     }
 }
 

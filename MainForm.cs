@@ -9,6 +9,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 using AlgebraicEquations;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 
 namespace PolynomialCalculation
 {
@@ -49,10 +50,10 @@ namespace PolynomialCalculation
             }
         }
 
-        public int xMin { get; set; } = -50;
-        public int xMax { get; set; } = 50;
-        public int yMin { get; set; } = -100;
-        public int yMax { get; set; } = 100;
+        public double xMin { get; set; } = -20;
+        public double xMax { get; set; } = 20;
+        public double yMin { get; set; } = -20;
+        public double yMax { get; set; } = 20;
 
         public MainForm()
         {
@@ -102,8 +103,6 @@ namespace PolynomialCalculation
             _panels.Add(panel4);
             _panels.Add(panel5);
 
-            chart.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
-            chart.ChartAreas[0].AxisY.ScaleView.Zoomable = true;
             chart.ChartAreas[0].AxisX.LabelStyle.Format = "0.00";
             chart.ChartAreas[0].AxisY.LabelStyle.Format = "0.00";
         }
@@ -181,6 +180,7 @@ namespace PolynomialCalculation
         private double FindFunction(double x)
         {
             return _coef5 * Math.Pow(x, 5) + _coef4 * Math.Pow(x, 4) + _coef3 * Math.Pow(x, 3) + _coef2 * Math.Pow(x, 2) + _coef1 * x + _coef0;
+            
         }
 
         private void SetCoefficients()
@@ -286,13 +286,13 @@ namespace PolynomialCalculation
                     textBox.Text.Contains('-') && textBox.SelectionStart > 1 ||
                     textBox.Text.Any(char.IsDigit) && textBox.SelectionStart > 0)
                 { }
-                else if (textBox.SelectionStart == 1 && textBox.Text.Contains('-'))
+                 if (textBox.SelectionStart == 1 && textBox.Text.Contains('-'))
                 {
                     textBox.Text += "0,";
                     textBox.Select(textBox.Text.Length, 0);
                     e.Handled = true;
                 }
-                else
+                if (textBox.Text.Contains('0') && textBox.SelectionStart == 1)
                 {
                     e.Handled = true;
                 }
@@ -305,54 +305,63 @@ namespace PolynomialCalculation
 
         private void chart_MouseWheel(object sender, MouseEventArgs e)
         {
-            var chart = (Chart)sender;
-            var xAxis = chart.ChartAreas[0].AxisX;
-            var yAxis = chart.ChartAreas[0].AxisY;
 
-            var xMin = xAxis.ScaleView.ViewMinimum;
-            var xMax = xAxis.ScaleView.ViewMaximum;
-            var yMin = yAxis.ScaleView.ViewMinimum;
-            var yMax = yAxis.ScaleView.ViewMaximum;
+          
+            //ChartArea CA = chart.ChartAreas[0];  // quick reference
+            //CA.AxisX.ScaleView.Zoomable = true;
+            //CA.CursorX.AutoScroll = true;
+            //CA.CursorY.AutoScroll = true;
+            //CA.CursorX.IsUserSelectionEnabled = true;
+            //CA.CursorY.IsUserSelectionEnabled = true;
 
-            int IntervalX = 3;
-            int IntervalY = 3;
-            try
-            {
-                if (e.Delta < 0 && _numberOfZoom > 0) // Scrolled down.
-                {
-                    var posXStart = xAxis.PixelPositionToValue(e.Location.X) - IntervalX * 2 / Math.Pow(2, _numberOfZoom);
-                    var posXFinish = xAxis.PixelPositionToValue(e.Location.X) + IntervalX * 2 / Math.Pow(2, _numberOfZoom);
-                    var posYStart = yAxis.PixelPositionToValue(e.Location.Y) - IntervalY * 2 / Math.Pow(2, _numberOfZoom);
-                    var posYFinish = yAxis.PixelPositionToValue(e.Location.Y) + IntervalY * 2 / Math.Pow(2, _numberOfZoom);
+            //var chart = (Chart)sender;
+            //var xAxis = chart.ChartAreas[0].AxisX;
+            //var yAxis = chart.ChartAreas[0].AxisY;
 
-                    if (posXStart < 0) posXStart = 0;
-                    if (posYStart < 0) posYStart = 0;
-                    if (posYFinish > yAxis.Maximum) posYFinish = yAxis.Maximum;
-                    if (posXFinish > xAxis.Maximum) posYFinish = xAxis.Maximum;
-                    xAxis.ScaleView.Zoom(posXStart, posXFinish);
-                    yAxis.ScaleView.Zoom(posYStart, posYFinish);
-                    _numberOfZoom--;
-                }
-                else if (e.Delta < 0 && _numberOfZoom == 0) //Last scrolled dowm
-                {
-                    yAxis.ScaleView.ZoomReset();
-                    xAxis.ScaleView.ZoomReset();
-                }
-                else if (e.Delta > 0) // Scrolled up.
-                {
-                    var posXStart = xAxis.PixelPositionToValue(e.Location.X) - IntervalX / Math.Pow(2, _numberOfZoom);
-                    var posXFinish = xAxis.PixelPositionToValue(e.Location.X) + IntervalX / Math.Pow(2, _numberOfZoom);
-                    var posYStart = yAxis.PixelPositionToValue(e.Location.Y) - IntervalY / Math.Pow(2, _numberOfZoom);
-                    var posYFinish = yAxis.PixelPositionToValue(e.Location.Y) + IntervalY / Math.Pow(2, _numberOfZoom);
+            //var xMin = xAxis.ScaleView.ViewMinimum;
+            //var xMax = xAxis.ScaleView.ViewMaximum;
+            //var yMin = yAxis.ScaleView.ViewMinimum;
+            //var yMax = yAxis.ScaleView.ViewMaximum;
 
-                    xAxis.ScaleView.Zoom(posXStart, posXFinish);
-                    yAxis.ScaleView.Zoom(posYStart, posYFinish);
-                    _numberOfZoom++;
-                }
+            //int IntervalX = 1;
+            //int IntervalY = 1;
+            //try
+            //{
+            //    if (e.Delta < 0 && _numberOfZoom > 0) // Scrolled down.
+            //    {
+            //        var posXStart = xAxis.PixelPositionToValue(e.Location.X) - IntervalX;
+            //        var posXFinish = xAxis.PixelPositionToValue(e.Location.X) + IntervalX;
+            //        var posYStart = yAxis.PixelPositionToValue(e.Location.Y) - IntervalY;
+            //        var posYFinish = yAxis.PixelPositionToValue(e.Location.Y) + IntervalY;
 
-                if (_numberOfZoom < 0) _numberOfZoom = 0;
-            }
-            catch { }
+            //        if (posXStart < 0) posXStart = 0;
+            //        if (posYStart < 0) posYStart = 0;
+            //        if (posYFinish > yAxis.Maximum) posYFinish = yAxis.Maximum;
+            //        if (posXFinish > xAxis.Maximum) posYFinish = xAxis.Maximum;
+            //        xAxis.ScaleView.Zoom(posXStart, posXFinish);
+            //        yAxis.ScaleView.Zoom(posYStart, posYFinish);
+            //        _numberOfZoom--;
+            //    }
+            //    else if (e.Delta < 0 && _numberOfZoom == 0) //Last scrolled dowm
+            //    {
+            //        yAxis.ScaleView.ZoomReset();
+            //        xAxis.ScaleView.ZoomReset();
+            //    }
+            //    else if (e.Delta > 0) // Scrolled up.
+            //    {
+            //        var posXStart = xAxis.PixelPositionToValue(e.Location.X) - IntervalX; 
+            //        var posXFinish = xAxis.PixelPositionToValue(e.Location.X) + IntervalX;
+            //        var posYStart = yAxis.PixelPositionToValue(e.Location.Y) - IntervalY;
+            //        var posYFinish = yAxis.PixelPositionToValue(e.Location.Y) + IntervalY;
+
+            //        xAxis.ScaleView.Zoom(posXStart, posXFinish);
+            //        yAxis.ScaleView.Zoom(posYStart, posYFinish);
+            //        _numberOfZoom++;
+            //    }
+
+            //    if (_numberOfZoom < 0) _numberOfZoom = 0;
+            //}
+            //catch { }
         }
 
         private void buttonFindRoots_Click(object sender, EventArgs e)
@@ -432,22 +441,23 @@ namespace PolynomialCalculation
 
         private void buttonGraphic_Click(object sender, EventArgs e)
         {
+            SetCoefficients();
+            chart.ChartAreas[0].AxisX.Minimum = xMin;
+            chart.ChartAreas[0].AxisX.Maximum = xMax;
+            chart.ChartAreas[0].AxisY.Minimum = yMin;
+            chart.ChartAreas[0].AxisY.Maximum = yMax;
+
             try
             {
                 chart.Series["Func"].Points.Clear();
 
-                int y;
+                double y;   
 
-                SetCoefficients();
-
-                for (int x = xMin; x <= xMax; x++)
+                for (double x = xMin; x <= xMax; x += 0.01)
                 {
-                    y = (int)FindFunction(x);
-
-                    if (y <= yMax && y >= yMin)
-                    {
-                        chart.Series["Func"].Points.AddXY(x, y);
-                    }
+                        
+                    y = FindFunction(x);         
+                    chart.Series["Func"].Points.AddXY(x, y);
                 }
             }
             catch (FormatException ex)
@@ -463,6 +473,27 @@ namespace PolynomialCalculation
         private void buttonSetInterval_Click(object sender, EventArgs e)
         {
             new FormIntervalRoots(this).ShowDialog();
+        }
+
+        private void chart_MouseEnter(object sender, EventArgs e)
+        {
+            ChartArea CA = chart.ChartAreas[0];  // quick reference
+            CA.AxisX.ScaleView.Zoomable = true;
+            CA.AxisY.ScaleView.Zoomable = true;
+            CA.CursorX.AutoScroll = true;
+            CA.CursorY.AutoScroll = true;
+            CA.CursorX.IsUserSelectionEnabled = true;
+            CA.CursorY.IsUserSelectionEnabled = true;
+
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            chart.Visible = false;
+            chart.ChartAreas[0].AxisY.ScaleView.ZoomReset(10);
+            chart.ChartAreas[0].AxisX.ScaleView.ZoomReset(10);
+            chart.Visible = true;
         }
     }
 }
