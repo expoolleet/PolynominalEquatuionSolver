@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using AlgebraicEquations;
-using System.IO;
-using System.Reflection;
-using System.Threading;
 
 namespace PolynomialCalculation
 {
@@ -30,7 +24,6 @@ namespace PolynomialCalculation
         private int _degree;
         private int _maxDegree = 5;
         private int _accuracy = 2;
-        private int _numberOfZoom;
         private double _coef0;
         private double _coef1;
         private double _coef2;
@@ -102,9 +95,6 @@ namespace PolynomialCalculation
             _panels.Add(panel3);
             _panels.Add(panel4);
             _panels.Add(panel5);
-
-            chart.ChartAreas[0].AxisX.LabelStyle.Format = "0.00";
-            chart.ChartAreas[0].AxisY.LabelStyle.Format = "0.00";
         }
 
         private void comboBoxDegree_SelectedIndexChanged(object sender, EventArgs e)
@@ -185,18 +175,6 @@ namespace PolynomialCalculation
 
         private void SetCoefficients()
         {
-            //var coef = _coef0.GetType();
-            //coef.
-
-            //for (int i = 0; i < _coefficients.Count; i++)
-            //{
-
-
-            //    string coef = $"_coef{i}";
-            //    Assembly info = typeof(double).Assembly;
-            //    (info)coef = _coefficients[i].Text == "" ? 0 : Convert.ToDouble(_coefficients[i].Text);
-            //}
-
             _coef0 = _coefficients[0].Text == "" ? 0 : Convert.ToDouble(_coefficients[0].Text);
             _coef1 = _coefficients[1].Text == "" ? 0 : Convert.ToDouble(_coefficients[1].Text);
             _coef2 = _coefficients[2].Text == "" ? 0 : Convert.ToDouble(_coefficients[2].Text);
@@ -221,6 +199,7 @@ namespace PolynomialCalculation
             for (int i = 0; i <= _maxDegree; i++)
             {
                 _coefficients[i].Visible = false;
+                _coefficients[i].Text = "";
                 _variables[i].Visible = false;
 
 
@@ -229,7 +208,9 @@ namespace PolynomialCalculation
                     _panels[i].Visible = false;
                     _rootLabels[i].Visible = false;
                     _roots[i].Visible = false;
+                    _roots[i].Text = "";
                     _func[i].Visible = false;
+                    _func[i].Text = "";
                     _funcLabels[i].Visible = false;
                 }
             }
@@ -237,7 +218,6 @@ namespace PolynomialCalculation
             for (int i = 0; i <= _degree; i++)
             {
                 _coefficients[i].Visible = true;
-
                 _coefficients[i].Text = "";
                 _variables[i].Visible = true;
 
@@ -301,67 +281,6 @@ namespace PolynomialCalculation
             {
                 e.Handled = true;
             }
-        }
-
-        private void chart_MouseWheel(object sender, MouseEventArgs e)
-        {
-
-          
-            //ChartArea CA = chart.ChartAreas[0];  // quick reference
-            //CA.AxisX.ScaleView.Zoomable = true;
-            //CA.CursorX.AutoScroll = true;
-            //CA.CursorY.AutoScroll = true;
-            //CA.CursorX.IsUserSelectionEnabled = true;
-            //CA.CursorY.IsUserSelectionEnabled = true;
-
-            //var chart = (Chart)sender;
-            //var xAxis = chart.ChartAreas[0].AxisX;
-            //var yAxis = chart.ChartAreas[0].AxisY;
-
-            //var xMin = xAxis.ScaleView.ViewMinimum;
-            //var xMax = xAxis.ScaleView.ViewMaximum;
-            //var yMin = yAxis.ScaleView.ViewMinimum;
-            //var yMax = yAxis.ScaleView.ViewMaximum;
-
-            //int IntervalX = 1;
-            //int IntervalY = 1;
-            //try
-            //{
-            //    if (e.Delta < 0 && _numberOfZoom > 0) // Scrolled down.
-            //    {
-            //        var posXStart = xAxis.PixelPositionToValue(e.Location.X) - IntervalX;
-            //        var posXFinish = xAxis.PixelPositionToValue(e.Location.X) + IntervalX;
-            //        var posYStart = yAxis.PixelPositionToValue(e.Location.Y) - IntervalY;
-            //        var posYFinish = yAxis.PixelPositionToValue(e.Location.Y) + IntervalY;
-
-            //        if (posXStart < 0) posXStart = 0;
-            //        if (posYStart < 0) posYStart = 0;
-            //        if (posYFinish > yAxis.Maximum) posYFinish = yAxis.Maximum;
-            //        if (posXFinish > xAxis.Maximum) posYFinish = xAxis.Maximum;
-            //        xAxis.ScaleView.Zoom(posXStart, posXFinish);
-            //        yAxis.ScaleView.Zoom(posYStart, posYFinish);
-            //        _numberOfZoom--;
-            //    }
-            //    else if (e.Delta < 0 && _numberOfZoom == 0) //Last scrolled dowm
-            //    {
-            //        yAxis.ScaleView.ZoomReset();
-            //        xAxis.ScaleView.ZoomReset();
-            //    }
-            //    else if (e.Delta > 0) // Scrolled up.
-            //    {
-            //        var posXStart = xAxis.PixelPositionToValue(e.Location.X) - IntervalX; 
-            //        var posXFinish = xAxis.PixelPositionToValue(e.Location.X) + IntervalX;
-            //        var posYStart = yAxis.PixelPositionToValue(e.Location.Y) - IntervalY;
-            //        var posYFinish = yAxis.PixelPositionToValue(e.Location.Y) + IntervalY;
-
-            //        xAxis.ScaleView.Zoom(posXStart, posXFinish);
-            //        yAxis.ScaleView.Zoom(posYStart, posYFinish);
-            //        _numberOfZoom++;
-            //    }
-
-            //    if (_numberOfZoom < 0) _numberOfZoom = 0;
-            //}
-            //catch { }
         }
 
         private void buttonFindRoots_Click(object sender, EventArgs e)
@@ -477,15 +396,13 @@ namespace PolynomialCalculation
 
         private void chart_MouseEnter(object sender, EventArgs e)
         {
-            ChartArea CA = chart.ChartAreas[0];  // quick reference
-            CA.AxisX.ScaleView.Zoomable = true;
-            CA.AxisY.ScaleView.Zoomable = true;
-            CA.CursorX.AutoScroll = true;
-            CA.CursorY.AutoScroll = true;
-            CA.CursorX.IsUserSelectionEnabled = true;
-            CA.CursorY.IsUserSelectionEnabled = true;
-
-            
+            ChartArea ca = chart.ChartAreas[0]; 
+            ca.AxisX.ScaleView.Zoomable = true;
+            ca.AxisY.ScaleView.Zoomable = true;
+            ca.CursorX.AutoScroll = true;
+            ca.CursorY.AutoScroll = true;
+            ca.CursorX.IsUserSelectionEnabled = true;
+            ca.CursorY.IsUserSelectionEnabled = true;     
         }
 
         private void button1_Click(object sender, EventArgs e)
